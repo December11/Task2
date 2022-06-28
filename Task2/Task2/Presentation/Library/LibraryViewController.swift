@@ -18,8 +18,6 @@ class LibraryViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(LibraryCell.self, forCellReuseIdentifier: "libraryCell")
         configurateUI()
-        
-        
     }
     
     
@@ -27,8 +25,6 @@ class LibraryViewController: UIViewController {
         view.addSubview(tableView)
         view.backgroundColor = UIColor.white
     }
-
-
 }
 
 // MARK: UITableViewDataSource

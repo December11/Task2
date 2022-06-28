@@ -36,6 +36,7 @@ final class NetworkService {
             else { return }
             do{
                 let json = try JSONDecoder().decode(BookListDTO.self, from: data)
+                print(json.books)
                 completionBlock(.success(json.books))
             } catch {
                 print(error)
