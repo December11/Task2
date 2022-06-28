@@ -16,14 +16,15 @@ final class BookService {
     func getBooks(completionBlock: @escaping ([Book]) -> Void) {
         fetchBooksFromJSON { [weak self] fetchedBooks in
             self?.books = fetchedBooks
-            print("1. books count = ", self?.books.count)
+            print("1. books count = ", self?.books.count ?? "00")
+            
             completionBlock(fetchedBooks)
         }
     }
     
     private func fetchBooksFromJSON(completionBlock: @escaping ([Book]) -> Void) {
         let networkService = NetworkService()
-        networkService.fetch { [weak self] DTOObjects in
+        networkService.fetch { DTOObjects in
             switch DTOObjects {
             case .failure(let error):
                 print(error)
@@ -36,8 +37,8 @@ final class BookService {
                         description: $0.description ?? "No description"
                     )
                 }
-                
-                print("0. I parced \(String(describing: self?.books.count)) books")
+                print("0. I parced \(String(describing: fetchedBooks)) books")
+
                 completionBlock(fetchedBooks)
             }
         }

@@ -12,12 +12,28 @@ final class LibraryCell: UITableViewCell {
     let descriptionLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            super.init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        configurateUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configurateUI() {
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(descriptionLabel)
+        nameLabel.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.top.equalToSuperview().inset(8)
+        }
+        descriptionLabel.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().inset(8)
+            make.top.equalTo(nameLabel.snp.bottom).inset(-4)
         }
         
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
+    }
     
     func configurateCell(name: String, description: String) {
         nameLabel.text = name

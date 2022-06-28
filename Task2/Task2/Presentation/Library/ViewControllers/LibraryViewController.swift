@@ -5,6 +5,7 @@
 //  Created by Alla Shkolnik on 24.06.2022.
 //
 
+import SnapKit
 import UIKit
 
 class LibraryViewController: UIViewController {
@@ -14,20 +15,25 @@ class LibraryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.systemRed
         BookService.shared.getBooks { [weak self] fetchedBooks in
             self?.books = fetchedBooks
-            print("2.VC. books.count = \(self?.books.count)")
+            print("2. VC. books.count = \(String(describing: self?.books.count))")
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
         }
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(LibraryCell.self, forCellReuseIdentifier: "libraryCell")
+        tableView.register(LibraryCell.self, forCellReuseIdentifier: "LibraryCell")
         configurateUI()
     }
     
-    
     private func configurateUI() {
         view.addSubview(tableView)
-        view.backgroundColor = UIColor.white
+        tableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
 }
 
@@ -39,15 +45,12 @@ extension LibraryViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard
-            let cell = tableView.dequeueReusableCell(withIdentifier: "libraryCell", for: indexPath) as? LibraryCell
-        else { return UITableViewCell() }
-        
+        let cell: LibraryCell = tableView.dequeueReusableCell(for: indexPath)
         let currentBook = books[indexPath.row]
+        print("current Book is: \nname: \(currentBook.name)\nauthor: \(currentBook.authorName)\ndescription: \(currentBook.description)" )
         cell.configurateCell(name: currentBook.name, description: currentBook.description)
         return cell
     }
-    
     
 }
 
