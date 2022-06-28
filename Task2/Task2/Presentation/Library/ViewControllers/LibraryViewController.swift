@@ -15,7 +15,6 @@ class LibraryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.systemRed
         BookService.shared.getBooks { [weak self] fetchedBooks in
             self?.books = fetchedBooks
             print("2. VC. books.count = \(String(describing: self?.books.count))")
@@ -47,7 +46,6 @@ extension LibraryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: LibraryCell = tableView.dequeueReusableCell(for: indexPath)
         let currentBook = books[indexPath.row]
-        print("current Book is: \nname: \(currentBook.name)\nauthor: \(currentBook.authorName)\ndescription: \(currentBook.description)" )
         cell.configurateCell(name: currentBook.name, description: currentBook.description)
         return cell
     }

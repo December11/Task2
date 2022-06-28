@@ -21,6 +21,12 @@ final class LibraryCell: UITableViewCell {
     }
     
     private func configurateUI() {
+        configurateStackViews()
+        configureNameLabel()
+        configureDescriptionLabel()
+    }
+    
+    private func configurateStackViews() {
         let stackView = UIStackView(arrangedSubviews: [nameLabel, descriptionLabel])
         contentView.addSubview(stackView)
         stackView.snp.makeConstraints { make in
@@ -28,8 +34,6 @@ final class LibraryCell: UITableViewCell {
         }
         stackView.axis = .vertical
         stackView.spacing = 4.0
-        configureNameLabel()
-        configureDescriptionLabel()
     }
     
     private func configureNameLabel() {
@@ -47,5 +51,4 @@ final class LibraryCell: UITableViewCell {
         nameLabel.text = name
         descriptionLabel.text = description
     }
-
 }
