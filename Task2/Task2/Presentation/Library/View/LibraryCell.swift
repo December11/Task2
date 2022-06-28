@@ -21,18 +21,26 @@ final class LibraryCell: UITableViewCell {
     }
     
     private func configurateUI() {
-        contentView.addSubview(nameLabel)
-        contentView.addSubview(descriptionLabel)
-        nameLabel.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.top.equalToSuperview().inset(8)
+        let stackView = UIStackView(arrangedSubviews: [nameLabel, descriptionLabel])
+        contentView.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(16)
         }
-        descriptionLabel.snp.makeConstraints { make in
-            make.horizontalEdges.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(8)
-            make.top.equalTo(nameLabel.snp.bottom).inset(-4)
-        }
-        
+        stackView.axis = .vertical
+        stackView.spacing = 4.0
+        configureNameLabel()
+        configureDescriptionLabel()
+    }
+    
+    private func configureNameLabel() {
+        nameLabel.numberOfLines = 2
+        nameLabel.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
+    }
+    
+    private func configureDescriptionLabel() {
+        descriptionLabel.numberOfLines = 2
+        descriptionLabel.font = UIFont.systemFont(ofSize: 14)
+        descriptionLabel.textColor = UIColor.systemGray
     }
     
     func configurateCell(name: String, description: String) {
