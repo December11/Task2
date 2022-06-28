@@ -9,11 +9,15 @@ import UIKit
 
 class LibraryViewController: UIViewController {
     
-    private let books = BookService.shared.books
+    private var books = BookService.shared.books
     private let tableView = UITableView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        BookService.shared.getBooks { [weak self] fetchedBooks in
+            self?.books = fetchedBooks
+            print("2.VC. books.count = \(self?.books.count)")
+        }
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LibraryCell.self, forCellReuseIdentifier: "libraryCell")

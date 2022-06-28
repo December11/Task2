@@ -33,13 +33,16 @@ final class NetworkService {
             guard
                 error == nil,
                 let data = data
-            else { return }
+            else {
+                print("## Error. Can't load data: \(String(describing: error))")
+                return
+            }
             do{
                 let json = try JSONDecoder().decode(BookListDTO.self, from: data)
-                print(json.books)
+                print("booksDTO = \(json.books)")
                 completionBlock(.success(json.books))
             } catch {
-                print(error)
+                print("## Error. No items in response")
                 completionBlock(.failure(error))
             }
         }
