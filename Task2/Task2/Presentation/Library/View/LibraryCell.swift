@@ -10,6 +10,7 @@ import UIKit
 final class LibraryCell: UITableViewCell {
     let nameLabel = UILabel()
     let descriptionLabel = UILabel()
+    let infoButton = UIButton()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -21,19 +22,28 @@ final class LibraryCell: UITableViewCell {
     }
     
     private func configurateUI() {
-        configurateStackViews()
+        configurateContentView()
+        configurateButton()
         configureNameLabel()
         configureDescriptionLabel()
     }
     
-    private func configurateStackViews() {
-        let stackView = UIStackView(arrangedSubviews: [nameLabel, descriptionLabel])
-        contentView.addSubview(stackView)
-        stackView.snp.makeConstraints { make in
+    private func configurateContentView() {
+        let titleAndDescriptionStackView = UIStackView(arrangedSubviews: [nameLabel, descriptionLabel])
+        let cellContentStackView = UIStackView(arrangedSubviews: [titleAndDescriptionStackView, infoButton])
+        contentView.addSubview(cellContentStackView)
+        
+        cellContentStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(16)
         }
-        stackView.axis = .vertical
-        stackView.spacing = 4.0
+        cellContentStackView.spacing = 16.0
+        
+        titleAndDescriptionStackView.axis = .vertical
+        titleAndDescriptionStackView.spacing = 4.0
+    }
+    
+    private func configurateButton() {
+        infoButton.setImage(UIImage.init(systemName: "info.circle"), for: .init())
     }
     
     private func configureNameLabel() {

@@ -16,7 +16,7 @@ final class BookService {
     func getBooks(completionBlock: @escaping ([Book]) -> Void) {
         fetchBooksFromJSON { [weak self] fetchedBooks in
             self?.books = fetchedBooks
-            print("1. books count = ", self?.books.count ?? "00")
+//            print("1. books count = ", self?.books.count ?? "00")
             
             completionBlock(fetchedBooks)
         }

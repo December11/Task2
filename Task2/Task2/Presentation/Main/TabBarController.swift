@@ -12,36 +12,63 @@ final class TabBarController: UITabBarController {
         super.viewDidLoad()
         UITabBar.appearance().barTintColor = .systemBackground
         tabBar.tintColor = .systemBlue
-        setupViewControllers()
+        configurateTabBar()
     }
     
-    private func setupViewControllers() {
-        var houseIcon = UIImage()
-        var profileIcon = UIImage()
-        if let house = UIImage(systemName: "house") {
-            houseIcon = house
+    private enum Tab {
+        case library
+        case color
+        
+        var title: String {
+            switch self {
+            case .library:
+                return "Library"
+            case .color:
+                return "Color"
+            }
         }
-        if let person = UIImage(systemName: "person") {
-            profileIcon = person
+        
+        var iconTitle: String {
+            switch self {
+            case .library:
+                return "books.vertical"
+            case .color:
+                return "paintbrush"
+            }
         }
-        viewControllers = [
-            createViewCotroller(for: LibraryViewController(), title: "Books", image: houseIcon),
-            createViewCotroller(for: ColorViewController(), title: "Color", image: houseIcon)
-        ]
+        
+        var selectedIconTitle: String {
+            switch self {
+            case .library:
+                return "books.vertical.fill"
+            case .color:
+                return "paintbrush.fill"
+            }
+        }
     }
     
-//    private func createTabBarItem(for controller: UIViewController, title: String, image: UIImage) -> UITabBarItem {
-//        let tabBarItem = UITabBarItem(title: title, image: image, selectedImage: image)
-//        self.tabBarItem = tabBarItem
-//    }
-    private func createViewCotroller(for viewController: UIViewController, title: String, image: UIImage)
+    private func configurateTabBar() {
+        let tabs = [Tab.library, Tab.color]
+        tabs.forEach { self.tabBarItem = getTabBarItem(for: $0) }
+        let libraryVC = createNavigationController(for: LibraryViewController(), for: Tab.library)
+        let colorVC = createNavigationController(for: ColorViewController(), for: Tab.color)
+        self.viewControllers = [libraryVC, colorVC]
+        self.selectedViewController = colorVC
+    }
+    
+    private func getTabBarItem(for tab: Tab) -> UITabBarItem {
+        return UITabBarItem(
+            title: tab.title,
+            image: UIImage(systemName: tab.iconTitle),
+            selectedImage: UIImage(systemName: tab.selectedIconTitle)
+        )
+    }
+    
+    private func createNavigationController(for viewController: UIViewController, for tab: Tab)
     -> UINavigationController {
         let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.tabBarItem.title = title
-        navigationController.tabBarItem.image = image
-        navigationController.title = title
-//        navigationController.navigationBar.prefersLargeTitles = true
-//        viewController.navigationController?.title = title // uncomment when add NavBar
+        viewController.title = tab.title
+        navigationController.tabBarItem = getTabBarItem(for: tab)
         return navigationController
     }
 }

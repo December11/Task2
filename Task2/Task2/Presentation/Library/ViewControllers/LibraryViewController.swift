@@ -17,11 +17,12 @@ class LibraryViewController: UIViewController {
         super.viewDidLoad()
         BookService.shared.getBooks { [weak self] fetchedBooks in
             self?.books = fetchedBooks
-            print("2. VC. books.count = \(String(describing: self?.books.count))")
+//            print("2. VC. books.count = \(String(describing: self?.books.count))")
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         }
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LibraryCell.self, forCellReuseIdentifier: "LibraryCell")
@@ -49,7 +50,6 @@ extension LibraryViewController: UITableViewDataSource {
         cell.configurateCell(name: currentBook.name, description: currentBook.description)
         return cell
     }
-    
 }
 
 // MARK: UITableViewDelegate
@@ -57,4 +57,3 @@ extension LibraryViewController: UITableViewDataSource {
 extension LibraryViewController: UITableViewDelegate {
     
 }
-
