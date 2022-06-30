@@ -11,14 +11,22 @@ final class LibraryCell: UITableViewCell {
     let nameLabel = UILabel()
     let descriptionLabel = UILabel()
     let infoButton = UIButton()
+    var tapHandler: (() -> Void) = {}
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        infoButton.addTarget(self, action: #selector(tapButton(_:)), for: .touchUpInside)
         configurateUI()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configurateCell (name: String, description: String, tapHandler: @escaping () -> Void) {
+        nameLabel.text = name
+        descriptionLabel.text = description
+        self.tapHandler = tapHandler
     }
     
     private func configurateUI() {
@@ -57,8 +65,7 @@ final class LibraryCell: UITableViewCell {
         descriptionLabel.textColor = UIColor.systemGray
     }
     
-    func configurateCell(name: String, description: String) {
-        nameLabel.text = name
-        descriptionLabel.text = description
+    @objc private func tapButton( _ sender: UIButton) {
+        tapHandler()
     }
 }

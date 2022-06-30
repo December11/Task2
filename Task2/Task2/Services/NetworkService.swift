@@ -39,7 +39,6 @@ final class NetworkService {
             }
             do{
                 let json = try JSONDecoder().decode(BookListDTO.self, from: data)
-//                print("booksDTO = \(json.books)")
                 completionBlock(.success(json.books))
             } catch {
                 print("## Error. No items in response")
