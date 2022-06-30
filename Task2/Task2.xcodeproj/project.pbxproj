@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4DB580B7286E597600B215BA /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB580B6286E597600B215BA /* UIColor.swift */; };
 		4DEE70B6286AE98B00340636 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4DEE70B5286AE98B00340636 /* SnapKit */; };
 		4DEE70B9286AECCA00340636 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEE70B8286AECCA00340636 /* UITableView.swift */; };
 		4DEE70BD286B037400340636 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEE70BC286B037400340636 /* TabBarController.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4DB580B6286E597600B215BA /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		4DEE70B8286AECCA00340636 /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		4DEE70BC286B037400340636 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		4DEE70C0286B47AA00340636 /* ColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				4DEE70B8286AECCA00340636 /* UITableView.swift */,
+				4DB580B6286E597600B215BA /* UIColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				A4B738B12865F6100062F4B7 /* BookService.swift in Sources */,
 				A4DEBE542865DC46008D21A5 /* LibraryViewController.swift in Sources */,
 				4DEE70B9286AECCA00340636 /* UITableView.swift in Sources */,
+				4DB580B7286E597600B215BA /* UIColor.swift in Sources */,
 				A4DEBE502865DC46008D21A5 /* AppDelegate.swift in Sources */,
 				4DEE70C1286B47AA00340636 /* ColorViewController.swift in Sources */,
 				A4DEBE522865DC46008D21A5 /* SceneDelegate.swift in Sources */,
