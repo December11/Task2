@@ -71,7 +71,14 @@ extension LibraryViewController: UITableViewDataSource {
             alertController.addAction(UIAlertAction(title: "Close", style: .default))
             self?.present(alertController, animated: true)
         }
+        if indexPath.row == books.count - 1 {
+            cell.separatorInset = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width, bottom: 0, right: 0)
+        }
         return cell
+    }
+    
+    private func hideSeparatorIfLast(forCellForRowAt indexPath: IndexPath) {
+        
     }
 }
 
