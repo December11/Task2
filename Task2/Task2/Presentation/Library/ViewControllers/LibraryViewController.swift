@@ -68,7 +68,7 @@ extension LibraryViewController: UITableViewDataSource {
                 message: "Author of the book",
                 preferredStyle: .alert
             )
-            alertController.addAction(UIAlertAction(title: "Marvelous!", style: .default))
+            alertController.addAction(UIAlertAction(title: "Close", style: .default))
             self?.present(alertController, animated: true)
         }
         return cell
@@ -78,5 +78,7 @@ extension LibraryViewController: UITableViewDataSource {
 // MARK: UITableViewDelegate
 
 extension LibraryViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        nil
+    }
 }
