@@ -11,11 +11,11 @@ final class LibraryCell: UITableViewCell {
     let nameLabel = UILabel()
     let descriptionLabel = UILabel()
     let infoButton = UIButton()
-    var tapHandler: (() -> Void) = {}
+    var completionHandler: (() -> Void)?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        infoButton.addTarget(self, action: #selector(tapButton(_:)), for: .touchUpInside)
+        infoButton.addTarget(self, action: #selector(infoButtonAction), for: .touchUpInside)
         configurateUI()
     }
 
@@ -23,10 +23,10 @@ final class LibraryCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configurateCell (name: String, description: String, tapHandler: @escaping () -> Void) {
+    func configurateCell(name: String, description: String, completion: @escaping () -> Void) {
         nameLabel.text = name
         descriptionLabel.text = description
-        self.tapHandler = tapHandler
+        self.completionHandler = completion
     }
     
     private func configurateUI() {
@@ -40,18 +40,16 @@ final class LibraryCell: UITableViewCell {
         let titleAndDescriptionStackView = UIStackView(arrangedSubviews: [nameLabel, descriptionLabel])
         let cellContentStackView = UIStackView(arrangedSubviews: [titleAndDescriptionStackView, infoButton])
         contentView.addSubview(cellContentStackView)
-        
         cellContentStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(16)
         }
         cellContentStackView.spacing = 16.0
-        
         titleAndDescriptionStackView.axis = .vertical
         titleAndDescriptionStackView.spacing = 4.0
     }
     
     private func configurateButton() {
-        infoButton.setImage(UIImage.init(systemName: "info.circle"), for: .init())
+        infoButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
     }
     
     private func configureNameLabel() {
@@ -65,7 +63,7 @@ final class LibraryCell: UITableViewCell {
         descriptionLabel.textColor = UIColor.systemGray
     }
     
-    @objc private func tapButton( _ sender: UIButton) {
-        tapHandler()
+    @objc private func infoButtonAction() {
+        completionHandler?()
     }
 }
