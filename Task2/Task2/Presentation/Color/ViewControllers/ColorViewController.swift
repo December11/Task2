@@ -13,14 +13,13 @@ final class ColorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Color"
         configurateTapGesture()
         configurateLabel()
         view.backgroundColor = UIColor.randomColor
     }
     
     private func configurateTapGesture() {
-        tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapHandler(_:)))
+        tapGesture = UITapGestureRecognizer(target: self, action: #selector(changeColorAction))
         tapGesture.numberOfTapsRequired = 1
         tapGesture.numberOfTouchesRequired = 1
         view.addGestureRecognizer(tapGesture)
@@ -38,7 +37,7 @@ final class ColorViewController: UIViewController {
         }
     }
     
-    @objc private func tapHandler(_ sender: UITapGestureRecognizer) {
+    @objc private func changeColorAction() {
         view.backgroundColor = UIColor.randomColor
     }
 }

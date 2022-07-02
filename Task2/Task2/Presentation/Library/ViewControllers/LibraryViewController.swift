@@ -12,10 +12,11 @@ class LibraryViewController: UIViewController {
     private var books = [Book]()
     private let tableView = UITableView()
     private let activityIndicator = UIActivityIndicatorView(style: .medium)
+    private let navBar = UINavigationBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Books"
+        view.backgroundColor = .white
         BookService.shared.getBooks { [weak self] fetchedBooks in
             self?.books = fetchedBooks
             DispatchQueue.main.async {
@@ -23,22 +24,38 @@ class LibraryViewController: UIViewController {
                 self?.activityIndicator.stopAnimating()
             }
         }
-        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(LibraryCell.self, forCellReuseIdentifier: "LibraryCell")
         configurateUI()
     }
     
+    private func addNavBar() {
+        navBar.frame = CGRect(
+            x: 0,
+            y: 20,
+            width: UIScreen.main.bounds.size.width,
+            height: 45
+        )
+        navBar.barTintColor = .white
+        self.view.addSubview(navBar)
+
+        let navItem = UINavigationItem(title: "Library")
+        navBar.items = [navItem]
+    }
+    
     private func configurateUI() {
+        addNavBar()
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalTo(navBar.snp.bottom)
+            make.horizontalEdges.bottom.equalToSuperview()
         }
+        
         configurateActivityIndicator()
     }
     
-    func configurateActivityIndicator() {
+    private func configurateActivityIndicator() {
         activityIndicator.color = UIColor.systemGray2
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()

@@ -12,7 +12,7 @@ final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.backgroundColor = .systemBackground
-        tabBar.tintColor = .systemTeal
+        tabBar.tintColor = .systemBlue
         configurate()
     }
     
@@ -51,21 +51,30 @@ final class TabBarController: UITabBarController {
     private func configurate() {
         let libraryViewController = LibraryViewController()
         let colorViewController = ColorViewController()
+        
+//        let libraryNavigationController = UINavigationController(rootViewController: libraryViewController)
+//        let colorNavigationController = UINavigationController(rootViewController: colorViewController)
+        
         self.viewControllers = [libraryViewController, colorViewController]
-        self.selectedViewController = colorViewController
+        self.selectedViewController = viewControllers?.last
         
-        let libraryTabItem = tabBarItem(Tab.library)
-        libraryViewController.tabBarItem = libraryTabItem
-        
-        let colorTabItem = tabBarItem(Tab.color)
-        colorViewController.tabBarItem = colorTabItem
+        setTabBarItem(of: libraryViewController, Tab.library)
+        setTabBarItem(of: colorViewController, Tab.color)
     }
     
-    private func tabBarItem(_ tab: Tab) -> UITabBarItem {
-        return UITabBarItem(
+    private func navigationController(viewController: UIViewController, tab: Tab) -> UINavigationController {
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.title = tab.title
+//        setTabBarItem(of: viewController, tab)
+        return navigationController
+    }
+    
+    private func setTabBarItem(of viewController: UIViewController, _ tab: Tab) {
+        let tabbarItem = UITabBarItem(
             title: tab.title,
             image: UIImage(systemName: tab.iconTitle),
             selectedImage: UIImage(systemName: tab.selectedIconTitle)
         )
+        viewController.tabBarItem = tabbarItem
     }
 }
