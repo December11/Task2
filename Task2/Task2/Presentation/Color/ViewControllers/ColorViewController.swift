@@ -8,9 +8,8 @@
 import UIKit
 
 final class ColorViewController: UIViewController {
-    
-    let label = UILabel()
-    var tapGesture = UITapGestureRecognizer()
+    private let label = UILabel()
+    private var tapGesture = UITapGestureRecognizer()
     
     override func viewDidLoad() {
         super.viewDidLoad()

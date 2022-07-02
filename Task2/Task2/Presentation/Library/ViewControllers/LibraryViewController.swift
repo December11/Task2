@@ -9,7 +9,6 @@ import SnapKit
 import UIKit
 
 class LibraryViewController: UIViewController {
-    
     private var books = [Book]()
     private let tableView = UITableView()
     private let activityIndicator = UIActivityIndicatorView(style: .medium)

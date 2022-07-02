@@ -8,10 +8,10 @@
 import UIKit
 
 final class LibraryCell: UITableViewCell {
-    let nameLabel = UILabel()
-    let descriptionLabel = UILabel()
-    let infoButton = UIButton()
-    var completionHandler: (() -> Void)?
+    private let nameLabel = UILabel()
+    private let descriptionLabel = UILabel()
+    private let infoButton = UIButton()
+    private var completionHandler: (() -> Void)?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
