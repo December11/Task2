@@ -16,7 +16,7 @@ class LibraryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.title = "Books"
         BookService.shared.getBooks { [weak self] fetchedBooks in
             self?.books = fetchedBooks
             DispatchQueue.main.async {

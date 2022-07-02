@@ -8,11 +8,12 @@
 import UIKit
 
 final class TabBarController: UITabBarController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        UITabBar.appearance().barTintColor = .systemBackground
-        tabBar.tintColor = .systemBlue
-        configurateTabBar()
+        tabBar.backgroundColor = .systemBackground
+        tabBar.tintColor = .systemTeal
+        configurate()
     }
     
     private enum Tab {
@@ -47,29 +48,24 @@ final class TabBarController: UITabBarController {
         }
     }
     
-    private func configurateTabBar() {
-        let tabs = [Tab.library, Tab.color]
-        tabs.forEach { self.tabBarItem = getTabBarItem(for: $0) }
-        let libraryVC = createNavigationController(for: LibraryViewController(), for: Tab.library)
-        let colorVC = createNavigationController(for: ColorViewController(), for: Tab.color)
-        self.viewControllers = [libraryVC, colorVC]
-        self.selectedViewController = colorVC
+    private func configurate() {
+        let libraryViewController = LibraryViewController()
+        let colorViewController = ColorViewController()
+        self.viewControllers = [libraryViewController, colorViewController]
+        self.selectedViewController = colorViewController
+        
+        let libraryTabItem = tabBarItem(Tab.library)
+        libraryViewController.tabBarItem = libraryTabItem
+        
+        let colorTabItem = tabBarItem(Tab.color)
+        colorViewController.tabBarItem = colorTabItem
     }
     
-    private func getTabBarItem(for tab: Tab) -> UITabBarItem {
+    private func tabBarItem(_ tab: Tab) -> UITabBarItem {
         return UITabBarItem(
             title: tab.title,
             image: UIImage(systemName: tab.iconTitle),
             selectedImage: UIImage(systemName: tab.selectedIconTitle)
         )
-    }
-    
-    private func createNavigationController(for viewController: UIViewController, for tab: Tab)
-    -> UINavigationController {
-        let navigationController = UINavigationController(rootViewController: viewController)
-        viewController.title = tab.title
-        navigationController.tabBarItem = getTabBarItem(for: tab)
-        navigationController.navigationBar.prefersLargeTitles = true
-        return navigationController
     }
 }

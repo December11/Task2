@@ -14,6 +14,7 @@ final class ColorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Color"
         configurateTapGesture()
         configurateLabel()
         view.backgroundColor = UIColor.randomColor
