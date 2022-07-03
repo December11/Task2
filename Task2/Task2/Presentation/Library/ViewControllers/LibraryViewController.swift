@@ -12,7 +12,6 @@ class LibraryViewController: UIViewController {
     private var books = [Book]()
     private let tableView = UITableView()
     private let activityIndicator = UIActivityIndicatorView(style: .medium)
-    private let navBar = UINavigationBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,26 +29,10 @@ class LibraryViewController: UIViewController {
         configurateUI()
     }
     
-    private func addNavBar() {
-        navBar.frame = CGRect(
-            x: 0,
-            y: 20,
-            width: UIScreen.main.bounds.size.width,
-            height: 45
-        )
-        navBar.barTintColor = .white
-        self.view.addSubview(navBar)
-
-        let navItem = UINavigationItem(title: "Library")
-        navBar.items = [navItem]
-    }
-    
     private func configurateUI() {
-        addNavBar()
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(navBar.snp.bottom)
-            make.horizontalEdges.bottom.equalToSuperview()
+            make.edges.equalToSuperview()
         }
         
         configurateActivityIndicator()
