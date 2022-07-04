@@ -61,7 +61,7 @@ extension LibraryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: LibraryCell = tableView.dequeueReusableCell(for: indexPath)
         let currentBook = books[indexPath.row]
-        cell.configurateCell(name: currentBook.name, description: currentBook.description) { [weak self] in
+        cell.configurateCell(book: currentBook) { [weak self] in
             let alertController = UIAlertController(
                 title: currentBook.authorName,
                 message: "the author",

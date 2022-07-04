@@ -23,10 +23,10 @@ final class LibraryCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configurateCell(name: String, description: String, completion: @escaping () -> Void) {
-        nameLabel.text = name
-        descriptionLabel.text = description
-        self.completionHandler = completion
+    func configurateCell(book: Book, completion: @escaping () -> Void) {
+        nameLabel.text = book.name
+        descriptionLabel.text = book.description
+        completionHandler = completion
     }
     
     private func configurateUI() {
