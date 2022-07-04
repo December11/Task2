@@ -9,7 +9,7 @@ import Foundation
 
 final class BookService {
     static let shared = BookService()
-    var books = [Book]()
+    private var books = [Book]()
     
     private init() {}
     

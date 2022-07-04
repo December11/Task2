@@ -15,7 +15,7 @@ final class ColorViewController: UIViewController {
         super.viewDidLoad()
         configurateTapGesture()
         configurateLabel()
-        view.backgroundColor = UIColor.randomColor
+        view.backgroundColor = .randomColor
     }
     
     private func configurateTapGesture() {
@@ -38,6 +38,6 @@ final class ColorViewController: UIViewController {
     }
     
     @objc private func changeColorAction() {
-        view.backgroundColor = UIColor.randomColor
+        view.backgroundColor = .randomColor
     }
 }

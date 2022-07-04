@@ -49,11 +49,10 @@ final class TabBarController: UITabBarController {
     }
     
     private func configurate() {
-        let libraryNavigationController = configuratedController(from: LibraryViewController(), tab: Tab.library)
-        let colorNavigationController = configuratedController(from: ColorViewController(), tab: Tab.color)
-        
-        self.viewControllers = [libraryNavigationController, colorNavigationController]
-        self.selectedViewController = viewControllers?.last
+        let libraryNavigationController = configuratedController(from: LibraryViewController(), tab: .library)
+        let colorNavigationController = configuratedController(from: ColorViewController(), tab: .color)
+        viewControllers = [libraryNavigationController, colorNavigationController]
+        selectedViewController = viewControllers?.last
     }
     
     private func setTabBarItem(for viewController: UIViewController, _ tab: Tab) {

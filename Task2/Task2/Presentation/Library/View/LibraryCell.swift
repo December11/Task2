@@ -54,13 +54,13 @@ final class LibraryCell: UITableViewCell {
     
     private func configureNameLabel() {
         nameLabel.numberOfLines = 2
-        nameLabel.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
+        nameLabel.font = .systemFont(ofSize: 16, weight: .heavy)
     }
     
     private func configureDescriptionLabel() {
         descriptionLabel.numberOfLines = 2
-        descriptionLabel.font = UIFont.systemFont(ofSize: 14)
-        descriptionLabel.textColor = UIColor.systemGray
+        descriptionLabel.font = .systemFont(ofSize: 14)
+        descriptionLabel.textColor = .systemGray
     }
     
     @objc private func infoButtonAction() {

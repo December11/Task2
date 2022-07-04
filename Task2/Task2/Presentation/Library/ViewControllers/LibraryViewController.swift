@@ -64,7 +64,7 @@ extension LibraryViewController: UITableViewDataSource {
         cell.configurateCell(name: currentBook.name, description: currentBook.description) { [weak self] in
             let alertController = UIAlertController(
                 title: currentBook.authorName,
-                message: "Author of the book",
+                message: "the author",
                 preferredStyle: .alert
             )
             alertController.addAction(UIAlertAction(title: "Close", style: .default))
@@ -73,11 +73,8 @@ extension LibraryViewController: UITableViewDataSource {
         if indexPath.row == books.count - 1 {
             cell.separatorInset = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width, bottom: 0, right: 0)
         }
-        return cell
-    }
-    
-    private func hideSeparatorIfLast(forCellForRowAt indexPath: IndexPath) {
         
+        return cell
     }
 }
 

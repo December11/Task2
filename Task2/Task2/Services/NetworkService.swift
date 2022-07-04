@@ -9,11 +9,11 @@ import Foundation
 
 final class NetworkService {
     
-    let session = URLSession.shared
-    let scheme = "https"
-    let host = "firebasestorage.googleapis.com"
-    let path = "/v0/b/books-6bcec.appspot.com/o/books.json"
-    let queryItems = [
+    private let session = URLSession.shared
+    private let scheme = "https"
+    private let host = "firebasestorage.googleapis.com"
+    private let path = "/v0/b/books-6bcec.appspot.com/o/books.json"
+    private let queryItems = [
         URLQueryItem(name: "alt", value: "media"),
         URLQueryItem(name: "token", value: "44a536f2-11ea-42fb-a84b-b665e4e05fff")
     ]
@@ -29,19 +29,19 @@ final class NetworkService {
         }
         
         guard let url = urlComponents.url else { return }
-        let task = session.dataTask(with: url) { data, response, error in
+        let task = session.dataTask(with: url) { data, _, error in
             guard
                 error == nil,
                 let data = data
             else {
-                print("## Error. Can't load data: \(String(describing: error))")
+                print("Error. Can't load data: \(String(describing: error))")
                 return
             }
-            do{
+            do {
                 let json = try JSONDecoder().decode(BookListDTO.self, from: data)
                 completionBlock(.success(json.books))
             } catch {
-                print("## Error. No items in response")
+                print("Error. No items in response")
                 completionBlock(.failure(error))
             }
         }
