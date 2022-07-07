@@ -23,7 +23,7 @@ final class LibraryCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configurateCell(book: Book, completion: @escaping () -> Void) {
+    func configurate(book: Book, completion: @escaping () -> Void) {
         nameLabel.text = book.name
         descriptionLabel.text = book.description
         completionHandler = completion
@@ -31,7 +31,7 @@ final class LibraryCell: UITableViewCell {
     
     private func configurateUI() {
         configurateContentView()
-        configurateButton()
+        configurateInfoButton()
     }
     
     private func configurateContentView() {
@@ -53,7 +53,7 @@ final class LibraryCell: UITableViewCell {
         return stackView
     }
     
-    private func configurateButton() {
+    private func configurateInfoButton() {
         infoButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
     }
     

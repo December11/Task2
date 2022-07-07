@@ -62,7 +62,7 @@ extension LibraryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: LibraryCell = tableView.dequeueReusableCell(for: indexPath)
         let currentBook = books[indexPath.row]
-        cell.configurateCell(book: currentBook) { [weak self] in
+        cell.configurate(book: currentBook) { [weak self] in
             self?.showAlert(for: currentBook)
         }
         hideSeparatorIfLast(cell, for: indexPath)
