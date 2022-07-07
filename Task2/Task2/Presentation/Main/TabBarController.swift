@@ -55,6 +55,14 @@ final class TabBarController: UITabBarController {
         selectedViewController = viewControllers?.last
     }
     
+    private func configuratedController(from viewController: UIViewController, tab: Tab) -> UINavigationController {
+        setTabBarItem(for: viewController, tab)
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.navigationBar.barTintColor = .white
+        
+        return navigationController
+    }
+    
     private func setTabBarItem(for viewController: UIViewController, _ tab: Tab) {
         let tabbarItem = UITabBarItem(
             title: tab.title,
@@ -62,14 +70,6 @@ final class TabBarController: UITabBarController {
             selectedImage: UIImage(systemName: tab.selectedIconTitle)
         )
         viewController.tabBarItem = tabbarItem
-    }
-    
-    private func configuratedController(from viewController: UIViewController, tab: Tab) -> UINavigationController {
         viewController.title = tab.title
-        setTabBarItem(for: viewController, tab)
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.navigationBar.barTintColor = .white
-        
-        return navigationController
     }
 }

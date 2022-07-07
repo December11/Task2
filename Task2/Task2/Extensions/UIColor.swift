@@ -14,6 +14,7 @@ extension UIColor {
             green: CGFloat.random(in: 155...255) / 255,
             blue: CGFloat.random(in: 155...255) / 255,
             alpha: 1.0)
+        
         return color
     }
 }

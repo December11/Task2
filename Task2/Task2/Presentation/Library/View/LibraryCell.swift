@@ -8,8 +8,8 @@
 import UIKit
 
 final class LibraryCell: UITableViewCell {
-    private let nameLabel = UILabel()
-    private let descriptionLabel = UILabel()
+    private let nameLabel = UILabel(.title)
+    private let descriptionLabel = UILabel(.subTitle)
     private let infoButton = UIButton()
     private var completionHandler: (() -> Void)?
     
@@ -32,35 +32,29 @@ final class LibraryCell: UITableViewCell {
     private func configurateUI() {
         configurateContentView()
         configurateButton()
-        configureNameLabel()
-        configureDescriptionLabel()
     }
     
     private func configurateContentView() {
-        let titleAndDescriptionStackView = UIStackView(arrangedSubviews: [nameLabel, descriptionLabel])
+        let titleAndDescriptionStackView = labelsStackView()
+        
         let cellContentStackView = UIStackView(arrangedSubviews: [titleAndDescriptionStackView, infoButton])
         contentView.addSubview(cellContentStackView)
         cellContentStackView.snp.makeConstraints { make in
             make.edges.equalToSuperview().inset(16)
         }
         cellContentStackView.spacing = 16.0
-        titleAndDescriptionStackView.axis = .vertical
-        titleAndDescriptionStackView.spacing = 4.0
+    }
+    
+    private func labelsStackView() -> UIStackView {
+        let stackView = UIStackView(arrangedSubviews: [nameLabel, descriptionLabel])
+        stackView.axis = .vertical
+        stackView.spacing = 4.0
+        
+        return stackView
     }
     
     private func configurateButton() {
         infoButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
-    }
-    
-    private func configureNameLabel() {
-        nameLabel.numberOfLines = 2
-        nameLabel.font = .systemFont(ofSize: 16, weight: .heavy)
-    }
-    
-    private func configureDescriptionLabel() {
-        descriptionLabel.numberOfLines = 2
-        descriptionLabel.font = .systemFont(ofSize: 14)
-        descriptionLabel.textColor = .systemGray
     }
     
     @objc private func infoButtonAction() {

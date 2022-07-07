@@ -9,18 +9,10 @@ import Foundation
 
 final class BookService {
     static let shared = BookService()
-    private var books = [Book]()
     
     private init() {}
     
-    func getBooks(completionBlock: @escaping ([Book]) -> Void) {
-        fetchBooksFromJSON { [weak self] fetchedBooks in
-            self?.books = fetchedBooks
-            completionBlock(fetchedBooks)
-        }
-    }
-    
-    private func fetchBooksFromJSON(completionBlock: @escaping ([Book]) -> Void) {
+    func fetchBooks(completionBlock: @escaping ([Book]) -> Void) {
         let networkService = NetworkService()
         networkService.fetch { DTOObjects in
             switch DTOObjects {

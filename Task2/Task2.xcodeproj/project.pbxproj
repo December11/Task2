@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4DB580B7286E597600B215BA /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB580B6286E597600B215BA /* UIColor.swift */; };
+		4DCE7C6D2877624E0029ADFA /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCE7C6C2877624E0029ADFA /* UILabel.swift */; };
 		4DEE70B6286AE98B00340636 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4DEE70B5286AE98B00340636 /* SnapKit */; };
 		4DEE70B9286AECCA00340636 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEE70B8286AECCA00340636 /* UITableView.swift */; };
 		4DEE70BD286B037400340636 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEE70BC286B037400340636 /* TabBarController.swift */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		4DB580B6286E597600B215BA /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		4DCE7C6C2877624E0029ADFA /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		4DEE70B8286AECCA00340636 /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		4DEE70BC286B037400340636 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		4DEE70C0286B47AA00340636 /* ColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 			children = (
 				4DEE70B8286AECCA00340636 /* UITableView.swift */,
 				4DB580B6286E597600B215BA /* UIColor.swift */,
+				4DCE7C6C2877624E0029ADFA /* UILabel.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4B738AC2865F1DE0062F4B7 /* BookDTO.swift in Sources */,
+				4DCE7C6D2877624E0029ADFA /* UILabel.swift in Sources */,
 				A4B738A72865E3260062F4B7 /* LibraryCell.swift in Sources */,
 				4DEE70BD286B037400340636 /* TabBarController.swift in Sources */,
 				A4B738AF2865F2760062F4B7 /* NetworkService.swift in Sources */,
