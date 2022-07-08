@@ -20,8 +20,8 @@ final class BookService {
             case .success(let booksDTO):
                 let fetchedBooks = booksDTO.map {
                     Book(
-                        name: $0.title ?? "Untitled book",
                         authorName: $0.author ?? "No author",
+                        name: $0.title ?? "Untitled book",
                         description: $0.description ?? "No description"
                     )
                 }
