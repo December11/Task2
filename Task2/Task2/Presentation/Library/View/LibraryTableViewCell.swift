@@ -79,4 +79,5 @@ final class LibraryTableViewCell: UITableViewCell {
     @objc private func infoButtonAction() {
         completionHandler?()
     }
+    
 }

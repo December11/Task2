@@ -117,4 +117,5 @@ extension LibraryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         nil
     }
+    
 }

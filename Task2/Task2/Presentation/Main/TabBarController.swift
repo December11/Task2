@@ -77,4 +77,5 @@ final class TabBarController: UITabBarController {
         viewController.tabBarItem = tabbarItem
         viewController.title = style.title
     }
+    
 }

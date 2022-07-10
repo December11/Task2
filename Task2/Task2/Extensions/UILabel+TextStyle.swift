@@ -33,4 +33,5 @@ extension UILabel {
             self.textColor = .systemGray
         }
     }
+    
 }
