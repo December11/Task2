@@ -8,28 +8,30 @@
 import UIKit
 
 final class ColorViewController: UIViewController {
+    
     private let label = UILabel(.header)
-    private var tapGesture = UITapGestureRecognizer()
+    private var tapGesture: UITapGestureRecognizer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configurateTapGesture()
-        configurateLabel()
         view.backgroundColor = .randomColor
+        
+        configureTapGesture()
+        configureLabel()
     }
     
-    private func configurateTapGesture() {
+    private func configureTapGesture() {
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(changeColorAction))
+        guard let tapGesture = self.tapGesture else { return }
         view.addGestureRecognizer(tapGesture)
-        view.isUserInteractionEnabled = true
     }
     
-    private func configurateLabel() {
+    private func configureLabel() {
         label.text = "TAP"
+        
         view.addSubview(label)
         label.snp.makeConstraints { make in
-            make.centerY.equalTo(view.snp.centerY)
-            make.centerX.equalTo(view.snp.centerX)
+            make.center.equalToSuperview()
         }
     }
     

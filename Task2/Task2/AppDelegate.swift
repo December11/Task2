@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         let tabbarController = TabBarController()
-//        let navigationViewController = UINavigationController(rootViewController: tabbarController)
         window?.rootViewController = tabbarController
         window?.makeKeyAndVisible()
         

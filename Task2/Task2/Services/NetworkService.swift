@@ -8,6 +8,7 @@
 import Foundation
 
 final class NetworkService {
+    
     func fetch(completionBlock: @escaping (Result<[BookDTO], Error>) -> Void) {
         
         let session = URLSession.shared
@@ -30,14 +31,15 @@ final class NetworkService {
                 error == nil,
                 let data = data
             else {
-                print("Error. Can't load data: \(String(describing: error))")
+                if let error = error {
+                    completionBlock(.failure(error))
+                }
                 return
             }
             do {
                 let json = try JSONDecoder().decode(BookListDTO.self, from: data)
                 completionBlock(.success(json.books))
             } catch {
-                print("Error. No items in response")
                 completionBlock(.failure(error))
             }
         }

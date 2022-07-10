@@ -5,27 +5,43 @@
 //  Created by Alla Shkolnik on 24.06.2022.
 //
 
+import UIKit
+
 final class BookService {
+    
     static let shared = BookService()
+    var books = [Book]()
+    var error: Error?
     
-    private init() {}
+    private init() {
+        fetchBooks { [weak self] result in
+            switch result {
+            case let .failure(error):
+                self?.error = error
+                
+            case let .success(fetchedBooks):
+                self?.books = fetchedBooks
+            }
+        }
+    }
     
-    func fetchBooks(completionBlock: @escaping ([Book]) -> Void) {
+    func fetchBooks(completionBlock: @escaping (Result<[Book], Error>) -> Void) {
         let networkService = NetworkService()
         networkService.fetch { DTOObjects in
             switch DTOObjects {
-            case .failure(let error):
-                print(error)
-                completionBlock([])
-            case .success(let booksDTO):
-                let fetchedBooks = booksDTO.map {
-                    Book(
-                        authorName: $0.author ?? "No author",
-                        name: $0.title ?? "Untitled book",
-                        description: $0.description ?? "No description"
-                    )
+            case let .failure(error):
+                completionBlock(.failure(error))
+                
+            case let .success(booksDTO):
+                let fetchedBooks: [Book] = booksDTO.compactMap {
+                    guard
+                        let author = $0.author,
+                        let title = $0.title,
+                        let description = $0.description
+                    else { return nil }
+                    return Book(authorName: author, name: title, description: description)
                 }
-                completionBlock(fetchedBooks)
+                completionBlock(.success(fetchedBooks))
             }
         }
     }

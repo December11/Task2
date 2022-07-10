@@ -9,14 +9,7 @@ import UIKit
 
 final class TabBarController: UITabBarController {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tabBar.backgroundColor = .systemBackground
-        tabBar.tintColor = .systemBlue
-        configurate()
-    }
-    
-    private enum Tab {
+    private enum TabStyle {
         case library
         case color
         
@@ -24,6 +17,7 @@ final class TabBarController: UITabBarController {
             switch self {
             case .library:
                 return "Library"
+                
             case .color:
                 return "Color"
             }
@@ -33,6 +27,7 @@ final class TabBarController: UITabBarController {
             switch self {
             case .library:
                 return "books.vertical"
+                
             case .color:
                 return "paintbrush"
             }
@@ -42,34 +37,44 @@ final class TabBarController: UITabBarController {
             switch self {
             case .library:
                 return "books.vertical.fill"
+                
             case .color:
                 return "paintbrush.fill"
             }
         }
     }
     
-    private func configurate() {
-        let libraryNavigationController = configuratedController(from: LibraryViewController(), tab: .library)
-        let colorNavigationController = configuratedController(from: ColorViewController(), tab: .color)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tabBar.backgroundColor = .systemBackground
+        tabBar.tintColor = .systemBlue
+        
+        configure()
+    }
+    
+    private func configure() {
+        let libraryNavigationController = makeNavigationController(from: LibraryViewController(), tab: .library)
+        let colorNavigationController = makeNavigationController(from: ColorViewController(), tab: .color)
         viewControllers = [libraryNavigationController, colorNavigationController]
         selectedViewController = viewControllers?.last
     }
     
-    private func configuratedController(from viewController: UIViewController, tab: Tab) -> UINavigationController {
-        setTabBarItem(for: viewController, tab)
+    private func makeNavigationController(from viewController: UIViewController, tab: TabStyle)
+    -> UINavigationController {
+        configureTabBarItem(for: viewController, with: tab)
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.navigationBar.barTintColor = .white
         
         return navigationController
     }
     
-    private func setTabBarItem(for viewController: UIViewController, _ tab: Tab) {
+    private func configureTabBarItem(for viewController: UIViewController, with style: TabStyle) {
         let tabbarItem = UITabBarItem(
-            title: tab.title,
-            image: UIImage(systemName: tab.iconTitle),
-            selectedImage: UIImage(systemName: tab.selectedIconTitle)
+            title: style.title,
+            image: UIImage(systemName: style.iconTitle),
+            selectedImage: UIImage(systemName: style.selectedIconTitle)
         )
         viewController.tabBarItem = tabbarItem
-        viewController.title = tab.title
+        viewController.title = style.title
     }
 }

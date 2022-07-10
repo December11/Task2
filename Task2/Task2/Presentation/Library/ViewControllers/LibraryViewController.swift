@@ -8,45 +8,70 @@
 import SnapKit
 import UIKit
 
-class LibraryViewController: UIViewController {
-    private var books = [Book]()
+final class LibraryViewController: UIViewController {
+    
+    private enum Constants {
+        static let cellIdentifier = "LibraryTableViewCell"
+    }
+    
     private let tableView = UITableView()
     private let activityIndicator = UIActivityIndicatorView(style: .medium)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        getBooks()
         tableView.delegate = self
         tableView.dataSource = self
-        configurateUI()
+        
+        configureUI()
     }
     
-    private func configurateUI() {
-        tableView.register(LibraryCell.self, forCellReuseIdentifier: "LibraryCell")
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        update()
+    }
+    
+    private func configureUI() {
+        tableView.register(LibraryTableViewCell.self, forCellReuseIdentifier: Constants.cellIdentifier)
+        tableView.separatorStyle = .none
+        
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        configurateActivityIndicator()
+        
+        configureActivityIndicator()
     }
     
-    private func configurateActivityIndicator() {
-        activityIndicator.color = UIColor.systemGray2
-        view.addSubview(activityIndicator)
-        activityIndicator.startAnimating()
-        activityIndicator.snp.makeConstraints { make in
-            make.centerX.equalTo(view.snp.centerX)
-            make.centerY.equalTo(view.snp.centerY)
+    private func update() {
+        if BookService.shared.books.isEmpty {
+            activityIndicator.startAnimating()
+            fetchBooks()
         }
     }
     
-    private func getBooks() {
-        BookService.shared.fetchBooks { [weak self] fetchedBooks in
-            self?.books = fetchedBooks
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-                self?.activityIndicator.stopAnimating()
+    private func configureActivityIndicator() {
+        activityIndicator.color = UIColor.systemGray2
+        view.addSubview(activityIndicator)
+        
+        activityIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+    }
+    
+    private func fetchBooks() {
+        BookService.shared.fetchBooks { [weak self] result in
+            switch result {
+            case let .failure(error):
+                DispatchQueue.main.async {
+                    self?.showAlert(title: "Error", message: error.localizedDescription)
+                    self?.activityIndicator.stopAnimating()
+                }
+                
+            case .success:
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                    self?.activityIndicator.stopAnimating()
+                }
             }
         }
     }
@@ -55,41 +80,40 @@ class LibraryViewController: UIViewController {
 // MARK: UITableViewDataSource
 
 extension LibraryViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        books.count
+        BookService.shared.books.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: LibraryCell = tableView.dequeueReusableCell(for: indexPath)
-        let currentBook = books[indexPath.row]
-        cell.configurate(book: currentBook) { [weak self] in
-            self?.showAlert(for: currentBook)
+        let cell: LibraryTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        guard BookService.shared.books.indices.contains(indexPath.row) else { return UITableViewCell() }
+        let currentBook = BookService.shared.books[indexPath.row]
+        cell.configure(book: currentBook) { [weak self] in
+            self?.showAlert(title: currentBook.authorName)
         }
-        hideSeparatorIfLast(cell, for: indexPath)
+        if indexPath.row == 0 {
+            cell.separatorView.isHidden = true
+        }
         
         return cell
     }
     
-    private func showAlert(for book: Book) {
+    private func showAlert(title: String, message: String? = nil) {
         let alertController = UIAlertController(
-            title: book.authorName,
-            message: nil,
+            title: title,
+            message: message,
             preferredStyle: .alert
         )
         alertController.addAction(UIAlertAction(title: "Close", style: .default))
         present(alertController, animated: true)
-    }
-    
-    private func hideSeparatorIfLast(_ cell: UITableViewCell, for indexPath: IndexPath) {
-        if indexPath.row == books.count - 1 {
-            cell.separatorInset = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width, bottom: 0, right: 0)
-        }
     }
 }
 
 // MARK: UITableViewDelegate
 
 extension LibraryViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         nil
     }

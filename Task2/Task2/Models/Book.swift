@@ -6,6 +6,7 @@
 //
 
 struct Book {
+    
     let authorName: String
     let name: String
     let description: String
