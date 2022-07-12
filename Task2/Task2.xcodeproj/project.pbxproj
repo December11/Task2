@@ -7,29 +7,38 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4DB580B7286E597600B215BA /* UIColor+randomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB580B6286E597600B215BA /* UIColor+randomColor.swift */; };
+		4DCE7C6D2877624E0029ADFA /* UILabel+TextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCE7C6C2877624E0029ADFA /* UILabel+TextStyle.swift */; };
+		4DEE70B6286AE98B00340636 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4DEE70B5286AE98B00340636 /* SnapKit */; };
+		4DEE70B9286AECCA00340636 /* UITableView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEE70B8286AECCA00340636 /* UITableView+Reusable.swift */; };
+		4DEE70BD286B037400340636 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEE70BC286B037400340636 /* TabBarController.swift */; };
+		4DEE70C1286B47AA00340636 /* ColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEE70C0286B47AA00340636 /* ColorViewController.swift */; };
 		A4B738A22865E0FF0062F4B7 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B738A12865E0FF0062F4B7 /* Book.swift */; };
-		A4B738A72865E3260062F4B7 /* LibraryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B738A62865E3260062F4B7 /* LibraryCell.swift */; };
+		A4B738A72865E3260062F4B7 /* LibraryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B738A62865E3260062F4B7 /* LibraryTableViewCell.swift */; };
 		A4B738AA2865F07D0062F4B7 /* BookListDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B738A92865F07D0062F4B7 /* BookListDTO.swift */; };
 		A4B738AC2865F1DE0062F4B7 /* BookDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B738AB2865F1DE0062F4B7 /* BookDTO.swift */; };
 		A4B738AF2865F2760062F4B7 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B738AE2865F2760062F4B7 /* NetworkService.swift */; };
 		A4B738B12865F6100062F4B7 /* BookService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B738B02865F6100062F4B7 /* BookService.swift */; };
 		A4DEBE502865DC46008D21A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DEBE4F2865DC46008D21A5 /* AppDelegate.swift */; };
-		A4DEBE522865DC46008D21A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DEBE512865DC46008D21A5 /* SceneDelegate.swift */; };
 		A4DEBE542865DC46008D21A5 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DEBE532865DC46008D21A5 /* LibraryViewController.swift */; };
 		A4DEBE592865DC4A008D21A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4DEBE582865DC4A008D21A5 /* Assets.xcassets */; };
 		A4DEBE5C2865DC4A008D21A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4DEBE5A2865DC4A008D21A5 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4DB580B6286E597600B215BA /* UIColor+randomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+randomColor.swift"; sourceTree = "<group>"; };
+		4DCE7C6C2877624E0029ADFA /* UILabel+TextStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+TextStyle.swift"; sourceTree = "<group>"; };
+		4DEE70B8286AECCA00340636 /* UITableView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Reusable.swift"; sourceTree = "<group>"; };
+		4DEE70BC286B037400340636 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		4DEE70C0286B47AA00340636 /* ColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorViewController.swift; sourceTree = "<group>"; };
 		A4B738A12865E0FF0062F4B7 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
-		A4B738A62865E3260062F4B7 /* LibraryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCell.swift; sourceTree = "<group>"; };
+		A4B738A62865E3260062F4B7 /* LibraryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryTableViewCell.swift; sourceTree = "<group>"; };
 		A4B738A92865F07D0062F4B7 /* BookListDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookListDTO.swift; sourceTree = "<group>"; };
 		A4B738AB2865F1DE0062F4B7 /* BookDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDTO.swift; sourceTree = "<group>"; };
 		A4B738AE2865F2760062F4B7 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		A4B738B02865F6100062F4B7 /* BookService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookService.swift; sourceTree = "<group>"; };
 		A4DEBE4C2865DC46008D21A5 /* Task2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Task2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4DEBE4F2865DC46008D21A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A4DEBE512865DC46008D21A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		A4DEBE532865DC46008D21A5 /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		A4DEBE582865DC4A008D21A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A4DEBE5B2865DC4A008D21A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -41,12 +50,55 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DEE70B6286AE98B00340636 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4DEE70B7286AECB400340636 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4DEE70B8286AECCA00340636 /* UITableView+Reusable.swift */,
+				4DB580B6286E597600B215BA /* UIColor+randomColor.swift */,
+				4DCE7C6C2877624E0029ADFA /* UILabel+TextStyle.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4DEE70BA286AEEFA00340636 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				A4DEBE532865DC46008D21A5 /* LibraryViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		4DEE70BB286B035100340636 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				4DEE70BC286B037400340636 /* TabBarController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		4DEE70BE286B478800340636 /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				4DEE70BF286B479600340636 /* ViewControllers */,
+			);
+			path = Color;
+			sourceTree = "<group>";
+		};
+		4DEE70BF286B479600340636 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4DEE70C0286B47AA00340636 /* ColorViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		A4B738A02865E0C10062F4B7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -59,6 +111,8 @@
 		A4B738A32865E1B40062F4B7 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				4DEE70BB286B035100340636 /* Main */,
+				4DEE70BE286B478800340636 /* Color */,
 				A4B738A42865E1C50062F4B7 /* Library */,
 			);
 			path = Presentation;
@@ -67,8 +121,8 @@
 		A4B738A42865E1C50062F4B7 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				4DEE70BA286AEEFA00340636 /* ViewControllers */,
 				A4B738A52865E30F0062F4B7 /* View */,
-				A4DEBE532865DC46008D21A5 /* LibraryViewController.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -76,7 +130,7 @@
 		A4B738A52865E30F0062F4B7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A4B738A62865E3260062F4B7 /* LibraryCell.swift */,
+				A4B738A62865E3260062F4B7 /* LibraryTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -118,11 +172,11 @@
 		A4DEBE4E2865DC46008D21A5 /* Task2 */ = {
 			isa = PBXGroup;
 			children = (
+				4DEE70B7286AECB400340636 /* Extensions */,
 				A4B738AD2865F2640062F4B7 /* Services */,
 				A4B738A32865E1B40062F4B7 /* Presentation */,
 				A4B738A02865E0C10062F4B7 /* Models */,
 				A4DEBE4F2865DC46008D21A5 /* AppDelegate.swift */,
-				A4DEBE512865DC46008D21A5 /* SceneDelegate.swift */,
 				A4DEBE582865DC4A008D21A5 /* Assets.xcassets */,
 				A4DEBE5A2865DC4A008D21A5 /* LaunchScreen.storyboard */,
 				A4DEBE5D2865DC4A008D21A5 /* Info.plist */,
@@ -146,6 +200,9 @@
 			dependencies = (
 			);
 			name = Task2;
+			packageProductDependencies = (
+				4DEE70B5286AE98B00340636 /* SnapKit */,
+			);
 			productName = Task2;
 			productReference = A4DEBE4C2865DC46008D21A5 /* Task2.app */;
 			productType = "com.apple.product-type.application";
@@ -174,6 +231,9 @@
 				Base,
 			);
 			mainGroup = A4DEBE432865DC46008D21A5;
+			packageReferences = (
+				4DEE70B4286AE98B00340636 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = A4DEBE4D2865DC46008D21A5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -201,14 +261,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4B738AC2865F1DE0062F4B7 /* BookDTO.swift in Sources */,
-				A4B738A72865E3260062F4B7 /* LibraryCell.swift in Sources */,
+				4DCE7C6D2877624E0029ADFA /* UILabel+TextStyle.swift in Sources */,
+				A4B738A72865E3260062F4B7 /* LibraryTableViewCell.swift in Sources */,
+				4DEE70BD286B037400340636 /* TabBarController.swift in Sources */,
 				A4B738AF2865F2760062F4B7 /* NetworkService.swift in Sources */,
 				A4B738A22865E0FF0062F4B7 /* Book.swift in Sources */,
 				A4B738AA2865F07D0062F4B7 /* BookListDTO.swift in Sources */,
 				A4B738B12865F6100062F4B7 /* BookService.swift in Sources */,
 				A4DEBE542865DC46008D21A5 /* LibraryViewController.swift in Sources */,
+				4DEE70B9286AECCA00340636 /* UITableView+Reusable.swift in Sources */,
+				4DB580B7286E597600B215BA /* UIColor+randomColor.swift in Sources */,
 				A4DEBE502865DC46008D21A5 /* AppDelegate.swift in Sources */,
-				A4DEBE522865DC46008D21A5 /* SceneDelegate.swift in Sources */,
+				4DEE70C1286B47AA00340636 /* ColorViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +480,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4DEE70B4286AE98B00340636 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4DEE70B5286AE98B00340636 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DEE70B4286AE98B00340636 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A4DEBE442865DC46008D21A5 /* Project object */;
 }

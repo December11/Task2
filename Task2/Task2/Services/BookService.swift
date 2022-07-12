@@ -5,31 +5,45 @@
 //  Created by Alla Shkolnik on 24.06.2022.
 //
 
-import Foundation
+import UIKit
 
 final class BookService {
+    
     static let shared = BookService()
     var books = [Book]()
+    var error: Error?
     
-    private init() {}
-    
-    private func fetchBooksFromJSON() {
-        let networkService = NetworkService()
-        networkService.fetch { [weak self] DTOObjects in
-            switch DTOObjects {
-            case .failure(let error):
-                print(error)
-            case .success(let booksDTO):
-                DispatchQueue.main.async() {
-                    self?.books = booksDTO.map {
-                        Book(
-                            name: $0.title ?? "Untitled book",
-                            authorName: $0.author ?? "No author",
-                            description: $0.description ?? "No description"
-                        )
-                    }
-                }
+    private init() {
+        fetchBooks { [weak self] result in
+            switch result {
+            case let .failure(error):
+                self?.error = error
+                
+            case let .success(fetchedBooks):
+                self?.books = fetchedBooks
             }
         }
     }
+    
+    func fetchBooks(completionBlock: @escaping (Result<[Book], Error>) -> Void) {
+        let networkService = NetworkService()
+        networkService.fetch { DTOObjects in
+            switch DTOObjects {
+            case let .failure(error):
+                completionBlock(.failure(error))
+                
+            case let .success(booksDTO):
+                let fetchedBooks: [Book] = booksDTO.compactMap {
+                    guard
+                        let author = $0.author,
+                        let title = $0.title,
+                        let description = $0.description
+                    else { return nil }
+                    return Book(authorName: author, name: title, description: description)
+                }
+                completionBlock(.success(fetchedBooks))
+            }
+        }
+    }
+    
 }
