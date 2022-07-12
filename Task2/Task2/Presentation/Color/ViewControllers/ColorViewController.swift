@@ -22,7 +22,7 @@ final class ColorViewController: UIViewController {
     
     private func configureTapGesture() {
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(changeColorAction))
-        guard let tapGesture = self.tapGesture else { return }
+        guard let tapGesture = tapGesture else { return }
         view.addGestureRecognizer(tapGesture)
     }
     
