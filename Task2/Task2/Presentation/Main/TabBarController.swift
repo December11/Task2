@@ -10,35 +10,35 @@ import UIKit
 final class TabBarController: UITabBarController {
     
     private enum TabStyle {
-        case library
-        case color
+        case first
+        case second
         
         var title: String {
             switch self {
-            case .library:
-                return "Library"
+            case .first:
+                return "Таблицы"
                 
-            case .color:
-                return "Color"
+            case .second:
+                return "Цвета"
             }
         }
         
         var iconTitle: String {
             switch self {
-            case .library:
+            case .first:
                 return "books.vertical"
                 
-            case .color:
+            case .second:
                 return "paintbrush"
             }
         }
         
         var selectedIconTitle: String {
             switch self {
-            case .library:
+            case .first:
                 return "books.vertical.fill"
                 
-            case .color:
+            case .second:
                 return "paintbrush.fill"
             }
         }
@@ -53,8 +53,8 @@ final class TabBarController: UITabBarController {
     }
     
     private func configure() {
-        let libraryNavigationController = makeNavigationController(from: LibraryViewController(), tab: .library)
-        let colorNavigationController = makeNavigationController(from: ColorViewController(), tab: .color)
+        let libraryNavigationController = makeNavigationController(from: LibraryListViewController(), tab: .first)
+        let colorNavigationController = makeNavigationController(from: ColorViewController(), tab: .second)
         viewControllers = [libraryNavigationController, colorNavigationController]
         selectedViewController = viewControllers?.last
     }
