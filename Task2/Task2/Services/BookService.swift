@@ -37,7 +37,7 @@ final class BookService {
                     guard
                         let author = $0.author,
                         let title = $0.title,
-                        let description = $0.description
+                        let description = $0.shortDescription
                     else { return nil }
                     return Book(authorName: author, name: title, description: description)
                 }

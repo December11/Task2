@@ -10,7 +10,7 @@ import UIKit
 final class LibraryListViewController: UIViewController {
     
     private enum Constants {
-        static let spacing = 8.0
+        static let spacing = 16.0
         static let buttonsHeight = 60.0
         static let conderRadius = 16.0
         static let sideInsets = 24.0
