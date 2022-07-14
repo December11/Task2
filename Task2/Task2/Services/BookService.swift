@@ -35,11 +35,11 @@ final class BookService {
             case let .success(booksDTO):
                 let fetchedBooks: [Book] = booksDTO.compactMap {
                     guard
-                        let author = $0.author,
+                        let imageURLString = $0.imageURLString,
                         let title = $0.title,
                         let description = $0.shortDescription
                     else { return nil }
-                    return Book(authorName: author, name: title, description: description)
+                    return Book(imageURL: imageURLString, name: title, description: description)
                 }
                 completionBlock(.success(fetchedBooks))
             }

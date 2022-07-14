@@ -14,11 +14,13 @@ final class LibraryTableViewCell: UITableViewCell {
         static let sideInsets = 16.0
     }
     
+    private let coverImageView = UIImageView()
     private let nameLabel = UILabel(.title)
     private let descriptionLabel = UILabel(.subTitle)
     private let infoButton = UIButton()
-    let separatorView = UIView()
     private var completionHandler: (() -> Void)?
+    
+    let separatorView = UIView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -43,6 +45,17 @@ final class LibraryTableViewCell: UITableViewCell {
         makeSeparator()
     }
     
+    private func configureImageView() {
+        imageView?.backgroundColor = .systemGray5
+        
+        contentView.addSubview(coverImageView)
+        coverImageView.snp.makeConstraints { make in
+            make.height.equalTo(200)
+            make.width.equalTo(160)
+            make.leading.equalToSuperview().inset(Constants.sideInsets)
+        }
+    }
+    
     private func configureInfoButton() {
         infoButton.setImage(UIImage(systemName: Constants.imageTitle), for: .normal)
         
@@ -60,8 +73,9 @@ final class LibraryTableViewCell: UITableViewCell {
         
         contentView.addSubview(stackView)
         stackView.snp.makeConstraints { make in
-            make.leading.top.bottom.equalToSuperview().inset(Constants.sideInsets)
+            make.top.bottom.equalToSuperview().inset(Constants.sideInsets)
             make.trailing.lessThanOrEqualTo(infoButton.snp.leading).inset(-Constants.sideInsets)
+            make.leading.lessThanOrEqualTo(coverImageView.snp.trailing).inset(Constants.sideInsets)
         }
     }
     

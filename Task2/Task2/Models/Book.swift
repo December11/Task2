@@ -7,7 +7,8 @@
 
 struct Book {
     
-    let authorName: String
+    let imageURL: String
     let name: String
     let description: String
+    
 }

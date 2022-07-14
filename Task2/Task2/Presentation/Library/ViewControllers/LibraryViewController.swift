@@ -91,7 +91,7 @@ extension LibraryViewController: UITableViewDataSource {
         guard BookService.shared.books.indices.contains(indexPath.row) else { return UITableViewCell() }
         let currentBook = BookService.shared.books[indexPath.row]
         cell.configure(book: currentBook) { [weak self] in
-            self?.showAlert(title: currentBook.authorName)
+            self?.showAlert(title: String(indexPath.row + 1))
         }
         if indexPath.row == 0 {
             cell.separatorView.isHidden = true
@@ -102,7 +102,7 @@ extension LibraryViewController: UITableViewDataSource {
     
     private func showAlert(title: String, message: String? = nil) {
         let alertController = UIAlertController(
-            title: title,
+            title: "\(title)th book",
             message: message,
             preferredStyle: .alert
         )

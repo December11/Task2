@@ -16,10 +16,15 @@ final class NetworkService {
             var components = URLComponents()
             components.scheme = "https"
             components.host = "firebasestorage.googleapis.com"
-            components.path = "/v0/b/books-6bcec.appspot.com/o/books.json"
+//            components.path = "/v0/b/books-6bcec.appspot.com/o/books.json"
+//            components.queryItems = [
+//                URLQueryItem(name: "alt", value: "media"),
+//                URLQueryItem(name: "token", value: "44a536f2-11ea-42fb-a84b-b665e4e05fff")
+//            ]
+            components.path = "/v0/b/table-ec07d.appspot.com/o/books.json"
             components.queryItems = [
                 URLQueryItem(name: "alt", value: "media"),
-                URLQueryItem(name: "token", value: "44a536f2-11ea-42fb-a84b-b665e4e05fff")
+                URLQueryItem(name: "token", value: "041cdf86-c3a2-4ddf-84a0-734b63a70941")
             ]
             
             return components
@@ -38,7 +43,7 @@ final class NetworkService {
             }
             do {
                 let json = try JSONDecoder().decode(BookListDTO.self, from: data)
-                completionBlock(.success(json.books))
+                completionBlock(.success(json.items))
             } catch {
                 completionBlock(.failure(error))
             }
