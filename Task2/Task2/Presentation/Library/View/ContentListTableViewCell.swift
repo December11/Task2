@@ -1,5 +1,5 @@
 //
-//  LibraryTableViewCell.swift
+//  ContentListTableViewCell.swift
 //  Task2
 //
 //  Created by Alla Shkolnik on 24.06.2022.
@@ -7,11 +7,15 @@
 
 import UIKit
 
-final class LibraryTableViewCell: UITableViewCell {
+final class ContentListTableViewCell: UITableViewCell {
     
     private enum Constants {
         static let imageTitle = "info.circle"
-        static let sideInsets = 16.0
+        static let imageWidth = 80.0
+        static let defaultSideInsets = 16.0
+        static let smallSideInsets = 8.0
+        static let labelSpacing = 2.0
+        static let separatorHeight = 1 / UIScreen.main.nativeScale
     }
     
     private let coverImageView = UIImageView()
@@ -41,18 +45,21 @@ final class LibraryTableViewCell: UITableViewCell {
     
     private func configureUI() {
         configureInfoButton()
+        configureImageView()
         configureLabelStackView()
         makeSeparator()
     }
     
     private func configureImageView() {
-        imageView?.backgroundColor = .systemGray5
+        coverImageView.backgroundColor = .systemGray6
+        coverImageView.image = UIImage(systemName: Constants.imageTitle)
+        coverImageView.contentMode = .scaleAspectFit
         
         contentView.addSubview(coverImageView)
         coverImageView.snp.makeConstraints { make in
-            make.height.equalTo(200)
-            make.width.equalTo(160)
-            make.leading.equalToSuperview().inset(Constants.sideInsets)
+            make.top.bottom.equalToSuperview()
+            make.width.equalTo(Constants.imageWidth)
+            make.leading.equalToSuperview()
         }
     }
     
@@ -61,7 +68,7 @@ final class LibraryTableViewCell: UITableViewCell {
         
         contentView.addSubview(infoButton)
         infoButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(Constants.sideInsets)
+            make.trailing.equalToSuperview().inset(Constants.defaultSideInsets)
             make.centerY.equalToSuperview()
         }
     }
@@ -69,13 +76,14 @@ final class LibraryTableViewCell: UITableViewCell {
     private func configureLabelStackView() {
         let stackView = UIStackView(arrangedSubviews: [nameLabel, descriptionLabel])
         stackView.axis = .vertical
-        stackView.spacing = 4.0
+        stackView.distribution = .fillProportionally
+        stackView.spacing = Constants.labelSpacing
         
         contentView.addSubview(stackView)
         stackView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(Constants.sideInsets)
-            make.trailing.lessThanOrEqualTo(infoButton.snp.leading).inset(-Constants.sideInsets)
-            make.leading.lessThanOrEqualTo(coverImageView.snp.trailing).inset(Constants.sideInsets)
+            make.top.bottom.equalToSuperview().inset(Constants.defaultSideInsets)
+            make.trailing.lessThanOrEqualTo(infoButton.snp.leading).inset(-Constants.defaultSideInsets)
+            make.leading.equalTo(coverImageView.snp.trailing).inset(-Constants.smallSideInsets)
         }
     }
     
@@ -85,8 +93,8 @@ final class LibraryTableViewCell: UITableViewCell {
         
         separatorView.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(Constants.sideInsets)
-            make.height.equalTo(1 / UIScreen.main.nativeScale)
+            make.leading.trailing.equalToSuperview().inset(Constants.defaultSideInsets)
+            make.height.equalTo(Constants.separatorHeight)
         }
     }
     

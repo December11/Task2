@@ -1,5 +1,5 @@
 //
-//  LibraryListViewController.swift
+//  SectionViewController.swift
 //  Task2
 //
 //  Created by Alla Shkolnik on 13.07.2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class LibraryListViewController: UIViewController {
+final class SectionViewController: UIViewController {
     
     private enum Constants {
         static let spacing = 16.0
@@ -67,7 +67,7 @@ final class LibraryListViewController: UIViewController {
     }
     
     @objc private func buttonAction(_ sender: UIButton) {
-        let destination = LibraryViewController()
+        let destination = ContentListViewController()
         navigationController?.pushViewController(destination, animated: true)
     }
     

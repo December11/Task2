@@ -53,7 +53,7 @@ final class TabBarController: UITabBarController {
     }
     
     private func configure() {
-        let libraryNavigationController = makeNavigationController(from: LibraryListViewController(), tab: .first)
+        let libraryNavigationController = makeNavigationController(from: SectionViewController(), tab: .first)
         let colorNavigationController = makeNavigationController(from: ColorViewController(), tab: .second)
         viewControllers = [libraryNavigationController, colorNavigationController]
         selectedViewController = viewControllers?.last

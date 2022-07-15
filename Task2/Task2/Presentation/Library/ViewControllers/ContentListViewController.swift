@@ -8,10 +8,11 @@
 import SnapKit
 import UIKit
 
-final class LibraryViewController: UIViewController {
+final class ContentListViewController: UIViewController {
     
     private enum Constants {
-        static let cellIdentifier = "LibraryTableViewCell"
+        static let cellIdentifier = "ContentListTableViewCell"
+        static let cellHeight = 108.0
     }
     
     private let tableView = UITableView()
@@ -31,7 +32,7 @@ final class LibraryViewController: UIViewController {
     }
     
     private func configureUI() {
-        tableView.register(LibraryTableViewCell.self, forCellReuseIdentifier: Constants.cellIdentifier)
+        tableView.register(ContentListTableViewCell.self, forCellReuseIdentifier: Constants.cellIdentifier)
         tableView.separatorStyle = .none
         
         view.addSubview(tableView)
@@ -80,14 +81,14 @@ final class LibraryViewController: UIViewController {
 
 // MARK: UITableViewDataSource
 
-extension LibraryViewController: UITableViewDataSource {
+extension ContentListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         BookService.shared.books.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: LibraryTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        let cell: ContentListTableViewCell = tableView.dequeueReusableCell(for: indexPath)
         guard BookService.shared.books.indices.contains(indexPath.row) else { return UITableViewCell() }
         let currentBook = BookService.shared.books[indexPath.row]
         cell.configure(book: currentBook) { [weak self] in
@@ -100,6 +101,10 @@ extension LibraryViewController: UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        Constants.cellHeight
+    }
+    
     private func showAlert(title: String, message: String? = nil) {
         let alertController = UIAlertController(
             title: "\(title)th book",
@@ -109,11 +114,12 @@ extension LibraryViewController: UITableViewDataSource {
         alertController.addAction(UIAlertAction(title: "Close", style: .default))
         present(alertController, animated: true)
     }
+    
 }
 
 // MARK: UITableViewDelegate
 
-extension LibraryViewController: UITableViewDelegate {
+extension ContentListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         nil
