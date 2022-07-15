@@ -5,6 +5,7 @@
 //  Created by Alla Shkolnik on 24.06.2022.
 //
 
+import Kingfisher
 import UIKit
 
 final class ContentListTableViewCell: UITableViewCell {
@@ -40,6 +41,12 @@ final class ContentListTableViewCell: UITableViewCell {
     func configure(book: Book, completion: @escaping () -> Void) {
         nameLabel.text = book.name
         descriptionLabel.text = book.description
+        let url = URL(string: book.imageURLString)
+        coverImageView.kf.setImage(with: url)
+//        if let url = url {
+//            try? coverImageView.image = UIImage(data: Data(contentsOf: url))
+//        }
+        print()
         completionHandler = completion
     }
     
@@ -51,8 +58,6 @@ final class ContentListTableViewCell: UITableViewCell {
     }
     
     private func configureImageView() {
-        coverImageView.backgroundColor = .systemGray6
-        coverImageView.image = UIImage(systemName: Constants.imageTitle)
         coverImageView.contentMode = .scaleAspectFit
         
         contentView.addSubview(coverImageView)

@@ -39,7 +39,7 @@ final class BookService {
                         let title = $0.title,
                         let description = $0.shortDescription
                     else { return nil }
-                    return Book(imageURL: imageURLString, name: title, description: description)
+                    return Book(imageURLString: imageURLString, name: title, description: description)
                 }
                 completionBlock(.success(fetchedBooks))
             }

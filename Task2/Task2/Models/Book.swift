@@ -7,7 +7,7 @@
 
 struct Book {
     
-    let imageURL: String
+    let imageURLString: String
     let name: String
     let description: String
     
