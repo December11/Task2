@@ -11,11 +11,16 @@ import UIKit
 final class ContentListTableViewCell: UITableViewCell {
     
     private enum Constants {
-        static let imageTitle = "info.circle"
-        static let imageWidth = 80.0
+        static let infoImageTitle = "info.circle"
+        
+        static let infoButtonWidth = 24.0
+        static let newsCoverWidth = 108.0
+        static let bookCoverWidth = 80.0
+        
         static let defaultSideInsets = 16.0
         static let smallSideInsets = 8.0
         static let labelSpacing = 2.0
+        
         static let separatorHeight = 1 / UIScreen.main.nativeScale
     }
     
@@ -39,14 +44,22 @@ final class ContentListTableViewCell: UITableViewCell {
     }
     
     func configure(book: Book, completion: @escaping () -> Void) {
-        nameLabel.text = book.name
-        descriptionLabel.text = book.description
+        nameLabel.text = book.title
+        if let description = book.shortDescription {
+            descriptionLabel.text = description
+        }
         let url = URL(string: book.imageURLString)
         coverImageView.kf.setImage(with: url)
-//        if let url = url {
-//            try? coverImageView.image = UIImage(data: Data(contentsOf: url))
-//        }
-        print()
+        completionHandler = completion
+    }
+    
+    func configure(news: News, completion: @escaping () -> Void) {
+        nameLabel.text = news.title
+        if let description = news.shortDescription {
+            descriptionLabel.text = description
+        }
+        let url = URL(string: news.imageURLString)
+        coverImageView.kf.setImage(with: url)
         completionHandler = completion
     }
     
@@ -58,27 +71,29 @@ final class ContentListTableViewCell: UITableViewCell {
     }
     
     private func configureImageView() {
-        coverImageView.contentMode = .scaleAspectFit
+        coverImageView.contentMode = .scaleAspectFill
+        coverImageView.clipsToBounds = true
         
         contentView.addSubview(coverImageView)
         coverImageView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.width.equalTo(Constants.imageWidth)
             make.leading.equalToSuperview()
+            make.height.width.equalTo(Constants.newsCoverWidth)
         }
     }
     
     private func configureInfoButton() {
-        infoButton.setImage(UIImage(systemName: Constants.imageTitle), for: .normal)
+        infoButton.setImage(UIImage(systemName: Constants.infoImageTitle), for: .normal)
         
         contentView.addSubview(infoButton)
         infoButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(Constants.defaultSideInsets)
             make.centerY.equalToSuperview()
+            make.width.equalTo(Constants.infoButtonWidth)
         }
     }
     
     private func configureLabelStackView() {
+        descriptionLabel.lineBreakMode = .byTruncatingTail
         let stackView = UIStackView(arrangedSubviews: [nameLabel, descriptionLabel])
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally

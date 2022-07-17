@@ -10,10 +10,8 @@ import UIKit
 final class SectionViewController: UIViewController {
     
     private enum Constants {
-        static let spacing = 16.0
-        static let buttonsHeight = 60.0
-        static let conderRadius = 16.0
         static let sideInsets = 24.0
+        static let spacing = 16.0
         
         static let booksButtonTitle = "Книги"
         static let newsButtonTitle = "Новости"
@@ -21,10 +19,10 @@ final class SectionViewController: UIViewController {
         static let shuffleButtonTitle = "В перемешку"
     }
     
-    private let bookButton = UIButton()
-    private let newsButton = UIButton()
-    private let randomButton = UIButton()
-    private let shuffleButton = UIButton()
+    private let bookButton = ButtonWithLoader()
+    private let newsButton = ButtonWithLoader()
+    private let randomButton = ButtonWithLoader()
+    private let shuffleButton = ButtonWithLoader()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,21 +52,49 @@ final class SectionViewController: UIViewController {
         }
     }
     
-    private func configureButton(_ button: UIButton, title: String) {
-        button.setTitle(title, for: .normal)
-        button.backgroundColor = .systemGray5
-        button.setTitleColor(.black, for: .normal)
-        button.layer.cornerRadius = Constants.conderRadius
-        
+    private func configureButton(_ button: ButtonWithLoader, title: String) {
+        button.title = title
         button.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
-            make.height.equalTo(Constants.buttonsHeight)
         }
     }
     
-    @objc private func buttonAction(_ sender: UIButton) {
-        let destination = ContentListViewController()
-        navigationController?.pushViewController(destination, animated: true)
+    private func fetchBooks(by sender: ButtonWithLoader) {
+        FetchedDataService.shared.fetch { [weak self] result in
+            switch result {
+            case let .failure(error):
+                DispatchQueue.main.async {
+                    self?.showAlert(title: "Error", message: error.localizedDescription)
+                    sender.stopLoadAnimation()
+                }
+                
+            case .success:
+                DispatchQueue.main.async {
+                    sender.stopLoadAnimation()
+                    let destination = ContentListViewController()
+                    self?.navigationController?.pushViewController(destination, animated: true)
+                }
+            }
+        }
+    }
+    
+    private func showAlert(title: String, message: String? = nil) {
+        let alertController = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        alertController.addAction(UIAlertAction(title: "Close", style: .default))
+        present(alertController, animated: true)
+    }
+    
+    private func load(by sender: ButtonWithLoader) {
+        sender.startLoadAnimation()
+        fetchBooks(by: sender)
+    }
+    
+    @objc private func buttonAction(_ sender: ButtonWithLoader) {
+        load(by: sender)
     }
     
 }

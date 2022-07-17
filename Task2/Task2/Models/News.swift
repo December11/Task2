@@ -1,11 +1,11 @@
 //
-//  Book.swift
+//  News.swift
 //  Task2
 //
-//  Created by Alla Shkolnik on 24.06.2022.
+//  Created by Alla Shkolnik on 16.07.2022.
 //
 
-struct Book {
+struct News {
     
     let title: String
     let imageURLString: String
@@ -14,6 +14,6 @@ struct Book {
     
 }
 
-extension Book: Fetchable {
+extension News: Fetchable {
     
 }

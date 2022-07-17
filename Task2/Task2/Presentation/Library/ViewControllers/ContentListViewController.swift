@@ -16,7 +16,8 @@ final class ContentListViewController: UIViewController {
     }
     
     private let tableView = UITableView()
-    private let activityIndicator = UIActivityIndicatorView(style: .medium)
+    
+    var books = [Fetchable]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +25,6 @@ final class ContentListViewController: UIViewController {
         tableView.dataSource = self
         
         configureUI()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        update()
     }
     
     private func configureUI() {
@@ -39,42 +35,6 @@ final class ContentListViewController: UIViewController {
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
-        configureActivityIndicator()
-    }
-    
-    private func update() {
-        if BookService.shared.books.isEmpty {
-            activityIndicator.startAnimating()
-            fetchBooks()
-        }
-    }
-    
-    private func configureActivityIndicator() {
-        activityIndicator.color = UIColor.systemGray2
-        view.addSubview(activityIndicator)
-        
-        activityIndicator.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }
-    }
-    
-    private func fetchBooks() {
-        BookService.shared.fetchBooks { [weak self] result in
-            switch result {
-            case let .failure(error):
-                DispatchQueue.main.async {
-                    self?.showAlert(title: "Error", message: error.localizedDescription)
-                    self?.activityIndicator.stopAnimating()
-                }
-                
-            case .success:
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                    self?.activityIndicator.stopAnimating()
-                }
-            }
-        }
     }
     
 }
@@ -84,15 +44,15 @@ final class ContentListViewController: UIViewController {
 extension ContentListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        BookService.shared.books.count
+        FetchedDataService.shared.books.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ContentListTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-        guard BookService.shared.books.indices.contains(indexPath.row) else { return UITableViewCell() }
-        let currentBook = BookService.shared.books[indexPath.row]
-        cell.configure(book: currentBook) { [weak self] in
-            self?.showAlert(title: String(indexPath.row + 1))
+        guard FetchedDataService.shared.books.indices.contains(indexPath.row) else { return UITableViewCell() }
+        let currentBook = FetchedDataService.shared.books[indexPath.row]
+        cell.configure(news: currentBook) { [weak self] in
+            self?.showAlert(title: "\(indexPath.row + 1)th book")
         }
         if indexPath.row == 0 {
             cell.separatorView.isHidden = true
@@ -106,11 +66,7 @@ extension ContentListViewController: UITableViewDataSource {
     }
     
     private func showAlert(title: String, message: String? = nil) {
-        let alertController = UIAlertController(
-            title: "\(title)th book",
-            message: message,
-            preferredStyle: .alert
-        )
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Close", style: .default))
         present(alertController, animated: true)
     }
@@ -122,7 +78,13 @@ extension ContentListViewController: UITableViewDataSource {
 extension ContentListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        nil
+        let details = DetailViewController()
+        let currentItem = FetchedDataService.shared.books[indexPath.row]
+        details.itemURLString = currentItem.imageURLString
+        details.itemTitle = currentItem.title
+        details.itemDescription = currentItem.longDescription ?? currentItem.shortDescription
+        present(details, animated: true)
+        return indexPath
     }
     
 }
