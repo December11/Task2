@@ -9,34 +9,71 @@ import UIKit
 
 final class ColorViewController: UIViewController {
     
-    private let label = UILabel(.header)
-    private var tapGesture: UITapGestureRecognizer?
+    private enum Constants {
+        static let childVCHeight = (UIScreen.main.bounds.height / 2).rounded()
+    }
+    
+    private let topChildViewController = UIViewController()
+    private let bottomChildViewController = UIViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .randomColor
         
-        configureTapGesture()
-        configureLabel()
+        configureUI()
     }
     
-    private func configureTapGesture() {
-        tapGesture = UITapGestureRecognizer(target: self, action: #selector(changeColorAction))
-        guard let tapGesture = tapGesture else { return }
-        view.addGestureRecognizer(tapGesture)
-    }
-    
-    private func configureLabel() {
-        label.text = "TAP"
-        
-        view.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            topChildViewController.view.backgroundColor = .randomColor
+            bottomChildViewController.view.backgroundColor = .randomColor
         }
     }
     
-    @objc private func changeColorAction() {
-        view.backgroundColor = .randomColor
+    private func configureUI() {
+        topChildViewController.view.backgroundColor = .randomColor
+        bottomChildViewController.view.backgroundColor = .randomColor
+        
+        add(topChildViewController)
+        topChildViewController.view.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+            make.height.equalTo(Constants.childVCHeight)
+        }
+        
+        add(bottomChildViewController)
+        bottomChildViewController.view.snp.makeConstraints { make in
+            make.bottom.leading.trailing.equalToSuperview()
+            make.height.equalTo(Constants.childVCHeight)
+        }
+    }
+    
+}
+
+fileprivate extension UIColor {
+    
+    static var randomColor: UIColor {
+        let color = UIColor(
+            hue: CGFloat.random(in: 0...255) / 255,
+            saturation: 0.5,
+            brightness: 0.9,
+            alpha: 1)
+        return color
+    }
+    
+}
+
+fileprivate extension UIViewController {
+    
+    func add(_ child: UIViewController) {
+        addChild(child)
+        view.addSubview(child.view)
+        child.didMove(toParent: self)
+    }
+
+    func remove() {
+        guard parent != nil else { return }
+        willMove(toParent: nil)
+        view.removeFromSuperview()
+        removeFromParent()
     }
     
 }

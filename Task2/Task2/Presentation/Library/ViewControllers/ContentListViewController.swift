@@ -17,7 +17,7 @@ final class ContentListViewController: UIViewController {
     
     private let tableView = UITableView()
     
-    var books = [Fetchable]()
+    var content = [Fetchable]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
