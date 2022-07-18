@@ -43,22 +43,12 @@ final class ContentListTableViewCell: UITableViewCell {
         fatalError("init(coder:) error")
     }
     
-    func configure(book: Book, completion: @escaping () -> Void) {
-        nameLabel.text = book.title
-        if let description = book.shortDescription {
+    func configure(item: Fetchable, completion: @escaping () -> Void) {
+        nameLabel.text = item.title
+        if let description = item.shortDescription {
             descriptionLabel.text = description
         }
-        let url = URL(string: book.imageURLString)
-        coverImageView.kf.setImage(with: url)
-        completionHandler = completion
-    }
-    
-    func configure(news: News, completion: @escaping () -> Void) {
-        nameLabel.text = news.title
-        if let description = news.shortDescription {
-            descriptionLabel.text = description
-        }
-        let url = URL(string: news.imageURLString)
+        let url = URL(string: item.imageURLString ?? "")
         coverImageView.kf.setImage(with: url)
         completionHandler = completion
     }

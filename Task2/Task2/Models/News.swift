@@ -5,15 +5,18 @@
 //  Created by Alla Shkolnik on 16.07.2022.
 //
 
-struct News {
+final class News: Fetchable {
     
-    let title: String
-    let imageURLString: String
-    let shortDescription: String?
-    let longDescription: String?
+    var title: String
+    var imageURLString: String
+    var shortDescription: String?
+    var longDescription: String?
     
-}
-
-extension News: Fetchable {
+    required init(title: String, imageURLString: String, shortDescription: String?, longDescription: String?) {
+        self.title = title
+        self.imageURLString = imageURLString
+        self.shortDescription = shortDescription
+        self.longDescription = longDescription
+    }
     
 }

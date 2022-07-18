@@ -9,9 +9,13 @@ import Foundation
 
 final class NetworkService<TypeDTO: Decodable> {
     
+    let session = URLSession.shared
+    let scheme = "https"
+    let host = "firebasestorage.googleapis.com"
+    var path = "/v0/b/table-ec07d.appspot.com/o/news.json"
+    var queryItems = [URLQueryItem]()
+    
     func fetch(completionBlock: @escaping (Result<[TypeDTO], Error>) -> Void) {
-        
-        let session = URLSession.shared
         var urlComponents: URLComponents {
             var components = URLComponents()
 //            components.scheme = "https"
@@ -22,13 +26,10 @@ final class NetworkService<TypeDTO: Decodable> {
 //                URLQueryItem(name: "token", value: "041cdf86-c3a2-4ddf-84a0-734b63a70941")
 //            ]
             
-            components.scheme = "https"
-            components.host = "firebasestorage.googleapis.com"
-            components.path = "/v0/b/table-ec07d.appspot.com/o/news.json"
-            components.queryItems = [
-                URLQueryItem(name: "alt", value: "media"),
-                URLQueryItem(name: "token", value: "ff9c6435-86cb-4d11-ae49-1e56d7eb6b89")
-            ]
+            components.scheme = scheme
+            components.host = host
+            components.path = path
+            components.queryItems = queryItems
             
             return components
         }

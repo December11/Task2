@@ -5,15 +5,17 @@
 //  Created by Alla Shkolnik on 24.06.2022.
 //
 
-struct Book {
+final class Book: Fetchable {
     
-    let title: String
-    let imageURLString: String
-    let shortDescription: String?
-    let longDescription: String?
+    var title: String
+    var imageURLString: String
+    var shortDescription: String?
+    var longDescription: String?
     
-}
-
-extension Book: Fetchable {
-    
+    required init(title: String, imageURLString: String, shortDescription: String?, longDescription: String?) {
+        self.title = title
+        self.imageURLString = imageURLString
+        self.shortDescription = shortDescription
+        self.longDescription = longDescription
+    }
 }

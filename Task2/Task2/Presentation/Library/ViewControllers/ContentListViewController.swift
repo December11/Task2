@@ -44,14 +44,14 @@ final class ContentListViewController: UIViewController {
 extension ContentListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        FetchedDataService.shared.books.count
+        FetchedDataService.shared.items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ContentListTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-        guard FetchedDataService.shared.books.indices.contains(indexPath.row) else { return UITableViewCell() }
-        let currentBook = FetchedDataService.shared.books[indexPath.row]
-        cell.configure(news: currentBook) { [weak self] in
+        guard FetchedDataService.shared.items.indices.contains(indexPath.row) else { return UITableViewCell() }
+        let currentItem = FetchedDataService.shared.items[indexPath.row]
+        cell.configure(item: currentItem) { [weak self] in
             self?.showAlert(title: "\(indexPath.row + 1)th book")
         }
         if indexPath.row == 0 {
@@ -79,7 +79,7 @@ extension ContentListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         let details = DetailViewController()
-        let currentItem = FetchedDataService.shared.books[indexPath.row]
+        let currentItem = FetchedDataService.shared.items[indexPath.row]
         details.itemURLString = currentItem.imageURLString
         details.itemTitle = currentItem.title
         details.itemDescription = currentItem.longDescription ?? currentItem.shortDescription

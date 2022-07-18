@@ -26,15 +26,17 @@ final class SectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        
         bookButton.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
         newsButton.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
         randomButton.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
         shuffleButton.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
+        
         configureUI()
     }
     
     private func configureUI() {
+        view.backgroundColor = .white
         let stackView = UIStackView(arrangedSubviews: [bookButton, newsButton, randomButton, shuffleButton])
         stackView.axis = .vertical
         stackView.spacing = Constants.spacing
@@ -88,13 +90,9 @@ final class SectionViewController: UIViewController {
         present(alertController, animated: true)
     }
     
-    private func load(by sender: ButtonWithLoader) {
+    @objc private func buttonAction(_ sender: ButtonWithLoader) {
         sender.startLoadAnimation()
         fetchBooks(by: sender)
-    }
-    
-    @objc private func buttonAction(_ sender: ButtonWithLoader) {
-        load(by: sender)
     }
     
 }
