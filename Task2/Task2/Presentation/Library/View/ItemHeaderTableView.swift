@@ -10,7 +10,7 @@ import UIKit
 final class ItemHeaderTableView: UITableViewHeaderFooterView {
     
     private enum Constants {
-        static let headerHeight = 100.0
+        static let height = 250.0
     }
     
     private let coverImageView = UIImageView()
@@ -25,13 +25,15 @@ final class ItemHeaderTableView: UITableViewHeaderFooterView {
         contentView.addSubview(coverImageView)
         contentView.addSubview(coverImageView)
         coverImageView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
-            make.height.equalTo(Constants.headerHeight)
+            make.edges.equalToSuperview()
+            make.height.equalTo(Constants.height)
         }
     }
     
     func configure(imageString: String) {
         let url = URL(string: imageString)
         coverImageView.kf.setImage(with: url)
+        coverImageView.contentMode = .scaleAspectFill
+        coverImageView.clipsToBounds = true
     }
 }

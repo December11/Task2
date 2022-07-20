@@ -17,7 +17,6 @@
 		4D5C3C292888353500D1BDCE /* ItemHeaderTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5C3C282888353500D1BDCE /* ItemHeaderTableView.swift */; };
 		4D5C3C2B28885CA400D1BDCE /* ItemTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5C3C2A28885CA400D1BDCE /* ItemTitleTableViewCell.swift */; };
 		4D5C3C2D2888608600D1BDCE /* ItemDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5C3C2C2888608600D1BDCE /* ItemDescriptionTableViewCell.swift */; };
-		4D5C3C2F28886BA500D1BDCE /* ItemFooterTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5C3C2E28886BA500D1BDCE /* ItemFooterTableView.swift */; };
 		4DCE7C6D2877624E0029ADFA /* UILabel+TextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCE7C6C2877624E0029ADFA /* UILabel+TextStyle.swift */; };
 		4DEE70B6286AE98B00340636 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4DEE70B5286AE98B00340636 /* SnapKit */; };
 		4DEE70B9286AECCA00340636 /* UITableView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEE70B8286AECCA00340636 /* UITableView+Reusable.swift */; };
@@ -45,7 +44,6 @@
 		4D5C3C282888353500D1BDCE /* ItemHeaderTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemHeaderTableView.swift; sourceTree = "<group>"; };
 		4D5C3C2A28885CA400D1BDCE /* ItemTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTitleTableViewCell.swift; sourceTree = "<group>"; };
 		4D5C3C2C2888608600D1BDCE /* ItemDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDescriptionTableViewCell.swift; sourceTree = "<group>"; };
-		4D5C3C2E28886BA500D1BDCE /* ItemFooterTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFooterTableView.swift; sourceTree = "<group>"; };
 		4DCE7C6C2877624E0029ADFA /* UILabel+TextStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+TextStyle.swift"; sourceTree = "<group>"; };
 		4DEE70B8286AECCA00340636 /* UITableView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Reusable.swift"; sourceTree = "<group>"; };
 		4DEE70BC286B037400340636 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -173,7 +171,6 @@
 				4D5C3C282888353500D1BDCE /* ItemHeaderTableView.swift */,
 				4D5C3C2A28885CA400D1BDCE /* ItemTitleTableViewCell.swift */,
 				4D5C3C2C2888608600D1BDCE /* ItemDescriptionTableViewCell.swift */,
-				4D5C3C2E28886BA500D1BDCE /* ItemFooterTableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -320,7 +317,6 @@
 				4D0FADAC28843C02000230A1 /* DetailViewController.swift in Sources */,
 				4D0FAD9E287F506B000230A1 /* SectionViewController.swift in Sources */,
 				A4DEBE542865DC46008D21A5 /* ContentListViewController.swift in Sources */,
-				4D5C3C2F28886BA500D1BDCE /* ItemFooterTableView.swift in Sources */,
 				4DEE70B9286AECCA00340636 /* UITableView+Reusable.swift in Sources */,
 				4D0FADAA2882E316000230A1 /* Fetchable.swift in Sources */,
 				A4DEBE502865DC46008D21A5 /* AppDelegate.swift in Sources */,

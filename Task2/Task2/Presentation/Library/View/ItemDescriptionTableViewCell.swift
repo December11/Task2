@@ -24,7 +24,8 @@ final class ItemDescriptionTableViewCell: UITableViewCell {
         
         contentView.addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(Constants.sideInsets)
+            make.top.equalToSuperview()
+            make.leading.trailing.bottom.equalToSuperview().inset(Constants.sideInsets)
         }
     }
     

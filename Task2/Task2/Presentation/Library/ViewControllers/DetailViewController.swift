@@ -13,10 +13,9 @@ final class DetailViewController: UIViewController {
         static let headerCell = "ItemHeaderTableView"
         static let titleCell = "ItemTitleTableViewCell"
         static let descriptionCell = "ItemDescriptionTableViewCell"
-        static let footerCell = "ItemFooterTableView"
     }
     
-    private let tableView = UITableView()
+    private let tableView = UITableView(frame: CGRect.zero, style: .grouped)
     
     var itemURLString: String?
     var itemTitle: String?
@@ -32,14 +31,11 @@ final class DetailViewController: UIViewController {
         tableView.register(ItemHeaderTableView.self, forHeaderFooterViewReuseIdentifier: Identifier.headerCell)
         tableView.register(ItemTitleTableViewCell.self, forCellReuseIdentifier: Identifier.titleCell)
         tableView.register(ItemDescriptionTableViewCell.self,forCellReuseIdentifier: Identifier.descriptionCell)
-        tableView.register(ItemFooterTableView.self, forHeaderFooterViewReuseIdentifier: Identifier.footerCell)
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
-        // closeButton.addTarget(self, action: #selector(closeButtonAction), for: .touchUpInside)
     }
     
     @objc private func closeButtonAction() {
@@ -52,13 +48,12 @@ final class DetailViewController: UIViewController {
 
 extension DetailViewController: UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        4
-    }
-    
-    
     private enum Cell: Int {
         case header = 0, title, description, footer
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -95,10 +90,12 @@ extension DetailViewController: UITableViewDelegate {
         return header
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let cell: ItemFooterTableView = tableView.dequeueHeaderFooterView()
-        
-        return cell
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        200.0
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        nil
     }
     
 }

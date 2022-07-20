@@ -24,7 +24,8 @@ final class ItemTitleTableViewCell: UITableViewCell {
         
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(Constants.sideInsets)
+            make.top.equalToSuperview()
+            make.leading.trailing.bottom.equalToSuperview().inset(Constants.sideInsets)
         }
     }
     
