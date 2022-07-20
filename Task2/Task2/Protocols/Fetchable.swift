@@ -7,11 +7,11 @@
 
 protocol Fetchable {
     
-    var title: String { get set }
-    var imageURLString: String { get set }
+    var title: String? { get set }
+    var imageURLString: String? { get set }
     var shortDescription: String? { get set }
     var longDescription: String? { get set }
     
-    init(title: String, imageURLString: String, shortDescription: String?, longDescription: String?)
+    init(title: String?, imageURLString: String?, shortDescription: String?, longDescription: String?)
     
 }

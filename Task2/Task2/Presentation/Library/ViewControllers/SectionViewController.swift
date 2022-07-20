@@ -27,10 +27,10 @@ final class SectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        bookButton.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
-        newsButton.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
-        randomButton.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
-        shuffleButton.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
+        bookButton.addTarget(self, action: #selector(bookButtonAction), for: .touchUpInside)
+        newsButton.addTarget(self, action: #selector(newsButtonAction), for: .touchUpInside)
+        randomButton.addTarget(self, action: #selector(randomButtonAction), for: .touchUpInside)
+        shuffleButton.addTarget(self, action: #selector(shuffleButtonAction), for: .touchUpInside)
         
         configureUI()
     }
@@ -61,8 +61,8 @@ final class SectionViewController: UIViewController {
         }
     }
     
-    private func fetchBooks(by sender: ButtonWithLoader) {
-        FetchedDataService.shared.fetch { [weak self] result in
+    private func fetch(service fetchService: FetchedDataService, at sender: ButtonWithLoader) {
+        fetchService.fetch { [weak self] result in
             switch result {
             case let .failure(error):
                 DispatchQueue.main.async {
@@ -74,6 +74,7 @@ final class SectionViewController: UIViewController {
                 DispatchQueue.main.async {
                     sender.stopLoadAnimation()
                     let destination = ContentListViewController()
+                    destination.content = fetchService.items
                     self?.navigationController?.pushViewController(destination, animated: true)
                 }
             }
@@ -81,18 +82,33 @@ final class SectionViewController: UIViewController {
     }
     
     private func showAlert(title: String, message: String? = nil) {
-        let alertController = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: .alert
-        )
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Close", style: .default))
         present(alertController, animated: true)
     }
     
-    @objc private func buttonAction(_ sender: ButtonWithLoader) {
+    @objc private func bookButtonAction(_ sender: ButtonWithLoader) {
         sender.startLoadAnimation()
-        fetchBooks(by: sender)
+        let fetchService = FetchedDataService(service: .books)
+        fetch(service: fetchService, at: sender)
+    }
+    
+    @objc private func newsButtonAction(_ sender: ButtonWithLoader) {
+        sender.startLoadAnimation()
+        let fetchService = FetchedDataService(service: .news)
+        fetch(service: fetchService, at: sender)
+    }
+    
+    @objc private func randomButtonAction(_ sender: ButtonWithLoader) {
+        sender.startLoadAnimation()
+        let fetchService = FetchedDataService(service: .books)
+        fetch(service: fetchService, at: sender)
+    }
+    
+    @objc private func shuffleButtonAction(_ sender: ButtonWithLoader) {
+        sender.startLoadAnimation()
+        let fetchService = FetchedDataService(service: .books)
+        fetch(service: fetchService, at: sender)
     }
     
 }

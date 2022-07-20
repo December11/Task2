@@ -7,12 +7,12 @@
 
 final class Book: Fetchable {
     
-    var title: String
-    var imageURLString: String
+    var title: String?
+    var imageURLString: String?
     var shortDescription: String?
     var longDescription: String?
     
-    required init(title: String, imageURLString: String, shortDescription: String?, longDescription: String?) {
+    required init(title: String?, imageURLString: String?, shortDescription: String?, longDescription: String?) {
         self.title = title
         self.imageURLString = imageURLString
         self.shortDescription = shortDescription

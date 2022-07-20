@@ -48,8 +48,10 @@ final class ContentListTableViewCell: UITableViewCell {
         if let description = item.shortDescription {
             descriptionLabel.text = description
         }
-        let url = URL(string: item.imageURLString ?? "")
-        coverImageView.kf.setImage(with: url)
+        if let imageURLString = item.imageURLString {
+            let url = URL(string: imageURLString)
+            coverImageView.kf.setImage(with: url)
+        }
         completionHandler = completion
     }
     
@@ -61,6 +63,7 @@ final class ContentListTableViewCell: UITableViewCell {
     }
     
     private func configureImageView() {
+        coverImageView.backgroundColor = .systemGray6
         coverImageView.contentMode = .scaleAspectFill
         coverImageView.clipsToBounds = true
         

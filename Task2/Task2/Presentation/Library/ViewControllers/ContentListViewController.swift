@@ -44,13 +44,13 @@ final class ContentListViewController: UIViewController {
 extension ContentListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        FetchedDataService.shared.items.count
+        content.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ContentListTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-        guard FetchedDataService.shared.items.indices.contains(indexPath.row) else { return UITableViewCell() }
-        let currentItem = FetchedDataService.shared.items[indexPath.row]
+        guard content.indices.contains(indexPath.row) else { return UITableViewCell() }
+        let currentItem = content[indexPath.row]
         cell.configure(item: currentItem) { [weak self] in
             self?.showAlert(title: "\(indexPath.row + 1)th book")
         }
@@ -79,12 +79,16 @@ extension ContentListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         let details = DetailViewController()
-        let currentItem = FetchedDataService.shared.items[indexPath.row]
+        let currentItem = content[indexPath.row]
         details.itemURLString = currentItem.imageURLString
         details.itemTitle = currentItem.title
         details.itemDescription = currentItem.longDescription ?? currentItem.shortDescription
         present(details, animated: true)
         return indexPath
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.isSelected = false
     }
     
 }

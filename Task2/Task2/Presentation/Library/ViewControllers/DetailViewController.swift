@@ -9,19 +9,14 @@ import UIKit
 
 final class DetailViewController: UIViewController {
     
-    private enum Constants {
-        static let coverImageHeight = 240.0
-        
-        static let sideInsets = 16.0
-        static let largeSideInsets = 40.0
-        
-        static let buttonTitle = "Закрыть"
+    private enum Identifier {
+        static let headerCell = "ItemHeaderTableView"
+        static let titleCell = "ItemTitleTableViewCell"
+        static let descriptionCell = "ItemDescriptionTableViewCell"
+        static let footerCell = "ItemFooterTableView"
     }
     
-    private let coverImageView = UIImageView()
-    private let titleLabel = UILabel(.header)
-    private let descriptionLabel = UILabel(.regularText)
-    private let closeButton = UIButton()
+    private let tableView = UITableView()
     
     var itemURLString: String?
     var itemTitle: String?
@@ -29,78 +24,81 @@ final class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupContent(coverURLString: itemURLString, title: itemTitle, description: itemDescription)
-        closeButton.addTarget(self, action: #selector(closeButtonAction), for: .touchUpInside)
-        configureUI()
-    }
-    
-    private func setupContent(coverURLString: String?, title: String?, description: String?) {
-        guard
-            let urlString = coverURLString,
-            let url = URL(string: urlString),
-            let title = title,
-            let description = description
-        else { return }
-        coverImageView.kf.setImage(with: url)
-        titleLabel.text = title
-        descriptionLabel.text = description
         
-        closeButton.setTitle(Constants.buttonTitle, for: .normal)
-    }
-    
-    private func configureUI() {
-        view.backgroundColor = .white
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
         
-        configureCover()
-        configureTitleLabel()
-        configureDescriptionLabel()
-        configureButton()
-    }
-    
-    private func configureCover() {
-        coverImageView.contentMode = .scaleAspectFill
+        tableView.register(ItemHeaderTableView.self, forHeaderFooterViewReuseIdentifier: Identifier.headerCell)
+        tableView.register(ItemTitleTableViewCell.self, forCellReuseIdentifier: Identifier.titleCell)
+        tableView.register(ItemDescriptionTableViewCell.self,forCellReuseIdentifier: Identifier.descriptionCell)
+        tableView.register(ItemFooterTableView.self, forHeaderFooterViewReuseIdentifier: Identifier.footerCell)
         
-        view.addSubview(coverImageView)
-        coverImageView.snp.makeConstraints { make in
-            make.leading.trailing.top.equalToSuperview()
-            make.height.equalTo(Constants.coverImageHeight)
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
-    }
-    
-    private func configureTitleLabel() {
-        titleLabel.textColor = .white
-        titleLabel.numberOfLines = 0
         
-        view.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(Constants.sideInsets)
-            make.bottom.equalTo(coverImageView.snp.bottom).inset(Constants.sideInsets)
-        }
-    }
-    
-    private func configureDescriptionLabel() {
-        descriptionLabel.numberOfLines = 0
-        
-        view.addSubview(descriptionLabel)
-        descriptionLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(Constants.sideInsets)
-            make.top.equalTo(coverImageView.snp.bottom).inset(-Constants.sideInsets)
-        }
-    }
-    
-    private func configureButton() {
-        closeButton.backgroundColor = .systemBlue
-        
-        view.addSubview(closeButton)
-        closeButton.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(Constants.sideInsets)
-            make.bottom.equalToSuperview().inset(Constants.largeSideInsets)
-            make.top.greaterThanOrEqualTo(descriptionLabel.snp.bottom).inset(Constants.largeSideInsets)
-        }
+        // closeButton.addTarget(self, action: #selector(closeButtonAction), for: .touchUpInside)
     }
     
     @objc private func closeButtonAction() {
         dismiss(animated: true)
+    }
+    
+}
+
+// MARK: UITableViewDataSource
+
+extension DetailViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        4
+    }
+    
+    
+    private enum Cell: Int {
+        case header = 0, title, description, footer
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.row {
+        case Cell.title.rawValue:
+            let cell: ItemTitleTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.configure(title: itemTitle)
+            
+            return cell
+            
+        case Cell.description.rawValue:
+            let cell: ItemDescriptionTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.configure(description: itemDescription)
+            
+            return cell
+            
+        default:
+            
+            return UITableViewCell()
+        }
+    }
+    
+}
+
+// MARK: UITableViewDelegate
+
+extension DetailViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header: ItemHeaderTableView = tableView.dequeueHeaderFooterView()
+        guard let imageURLString = itemURLString else { return nil }
+        header.configure(imageString: imageURLString)
+        
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let cell: ItemFooterTableView = tableView.dequeueHeaderFooterView()
+        
+        return cell
     }
     
 }
