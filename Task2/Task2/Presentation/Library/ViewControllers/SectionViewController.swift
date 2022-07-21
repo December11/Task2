@@ -61,8 +61,12 @@ final class SectionViewController: UIViewController {
         }
     }
     
-    private func fetch(service fetchService: FetchedDataService, at sender: ButtonWithLoader) {
-        fetchService.fetch { [weak self] result in
+    private func fetch(
+        service: FetchedDataService,
+        at sender: ButtonWithLoader,
+        completion: @escaping ([Fetchable]) -> Void
+    ) {
+        service.fetch { [weak self] result in
             switch result {
             case let .failure(error):
                 DispatchQueue.main.async {
@@ -70,13 +74,8 @@ final class SectionViewController: UIViewController {
                     sender.stopLoadAnimation()
                 }
                 
-            case .success:
-                DispatchQueue.main.async {
-                    sender.stopLoadAnimation()
-                    let destination = ContentListViewController()
-                    destination.content = fetchService.items
-                    self?.navigationController?.pushViewController(destination, animated: true)
-                }
+            case let .success(items):
+                completion(items)
             }
         }
     }
@@ -90,25 +89,82 @@ final class SectionViewController: UIViewController {
     @objc private func bookButtonAction(_ sender: ButtonWithLoader) {
         sender.startLoadAnimation()
         let fetchService = FetchedDataService(service: .books)
-        fetch(service: fetchService, at: sender)
+        fetch(service: fetchService, at: sender, completion: { [weak self] items in
+            DispatchQueue.main.async {
+                sender.stopLoadAnimation()
+                let destination = ContentListViewController()
+                destination.content = items
+                self?.navigationController?.pushViewController(destination, animated: true)
+            }
+        })
     }
     
     @objc private func newsButtonAction(_ sender: ButtonWithLoader) {
         sender.startLoadAnimation()
         let fetchService = FetchedDataService(service: .news)
-        fetch(service: fetchService, at: sender)
+        fetch(service: fetchService, at: sender, completion: { [weak self] items in
+            DispatchQueue.main.async {
+                sender.stopLoadAnimation()
+                let destination = ContentListViewController()
+                destination.content = items
+                self?.navigationController?.pushViewController(destination, animated: true)
+            }
+        })
     }
     
     @objc private func randomButtonAction(_ sender: ButtonWithLoader) {
         sender.startLoadAnimation()
         let fetchService = FetchedDataService(service: .randomCase())
-        fetch(service: fetchService, at: sender)
+        fetch(service: fetchService, at: sender, completion: { [weak self] items in
+            DispatchQueue.main.async {
+                sender.stopLoadAnimation()
+                let destination = ContentListViewController()
+                destination.content = items
+                self?.navigationController?.pushViewController(destination, animated: true)
+            }
+        })
     }
     
     @objc private func shuffleButtonAction(_ sender: ButtonWithLoader) {
         sender.startLoadAnimation()
-        let fetchService = FetchedDataService(service: .books)
-        fetch(service: fetchService, at: sender)
+        
+        var books = [Fetchable]()
+        var news = [Fetchable]()
+        
+        
+        let dispatchGroup = DispatchGroup()
+        let bookFetchWorkItem: DispatchWorkItem
+        let newsFetchWorkItem: DispatchWorkItem
+        bookFetchWorkItem = DispatchWorkItem {
+            dispatchGroup.enter()
+            let fetchService = FetchedDataService(service: .books)
+            self.fetch(service: fetchService, at: sender) { items in
+                books = items
+                dispatchGroup.leave()
+            }
+        }
+        bookFetchWorkItem.perform()
+        
+        newsFetchWorkItem = DispatchWorkItem {
+            dispatchGroup.enter()
+            let fetchService = FetchedDataService(service: .news)
+            self.fetch(service: fetchService, at: sender) { items in
+                news = items
+                dispatchGroup.leave()
+            }
+        }
+        newsFetchWorkItem.perform()
+        
+        dispatchGroup.notify(queue: .main) {
+            sender.stopLoadAnimation()
+            var items = [Fetchable]()
+            items.append(contentsOf: books)
+            items.append(contentsOf: news)
+            
+            let destination = ContentListViewController()
+            destination.content = items.shuffled()
+            self.navigationController?.pushViewController(destination, animated: true)
+        }
     }
     
 }
