@@ -101,7 +101,7 @@ final class SectionViewController: UIViewController {
     
     @objc private func randomButtonAction(_ sender: ButtonWithLoader) {
         sender.startLoadAnimation()
-        let fetchService = FetchedDataService(service: .books)
+        let fetchService = FetchedDataService(service: .randomCase())
         fetch(service: fetchService, at: sender)
     }
     

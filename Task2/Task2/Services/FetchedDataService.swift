@@ -35,6 +35,11 @@ final class FetchedDataService {
             
             return service
         }
+        
+        static func randomCase() -> FetchedDataService.Service {
+            let array = [FetchedDataService.Service.books, FetchedDataService.Service.news]
+            return array[Int.random(in: 0...1)]
+        }
     }
 
     var items = [Fetchable]()
