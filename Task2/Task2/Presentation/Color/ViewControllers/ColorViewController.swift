@@ -52,16 +52,16 @@ fileprivate extension UIColor {
     
     static var randomColors: (topColor: UIColor, bottomColor: UIColor) {
         let halfSpectral = CGFloat(round(255 / 2))
-        let randomHue = CGFloat.random(in: 1...255)
+        let random = CGFloat.random(in: 10...245)
         
-        return randomHue > halfSpectral
+        return random > halfSpectral
         ? (
-            UIColor(hue: (halfSpectral + randomHue) / 255, saturation: 0.5, brightness: 0.9, alpha: 1),
-            UIColor(hue: randomHue / 255, saturation: 0.5, brightness: 0.9, alpha: 1)
+            UIColor(hue: (random + halfSpectral) / 255, saturation: 0.5, brightness: 0.9, alpha: 1),
+            UIColor(hue: (random - halfSpectral) / 255, saturation: 0.5, brightness: 0.9, alpha: 1)
         )
         : (
-            UIColor(hue: (halfSpectral - randomHue) / 255, saturation: 0.5, brightness: 0.9, alpha: 1),
-            UIColor(hue: randomHue / 255, saturation: 0.5, brightness: 0.9, alpha: 1)
+            UIColor(hue: (halfSpectral - random) / 255, saturation: 0.5, brightness: 0.9, alpha: 1),
+            UIColor(hue: (halfSpectral + random) / 255, saturation: 0.5, brightness: 0.9, alpha: 1)
         )
     }
     
