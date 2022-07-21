@@ -91,4 +91,15 @@ extension ContentListViewController: UITableViewDelegate {
         tableView.cellForRow(at: indexPath)?.isSelected = false
     }
     
+    func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
+        if editingStyle == .delete {
+            content.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
 }

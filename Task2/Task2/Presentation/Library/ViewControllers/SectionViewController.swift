@@ -156,10 +156,10 @@ final class SectionViewController: UIViewController {
         newsFetchWorkItem.perform()
         
         dispatchGroup.notify(queue: .main) {
-            sender.stopLoadAnimation()
             var items = [Fetchable]()
             items.append(contentsOf: books)
             items.append(contentsOf: news)
+            sender.stopLoadAnimation()
             
             let destination = ContentListViewController()
             destination.content = items.shuffled()
