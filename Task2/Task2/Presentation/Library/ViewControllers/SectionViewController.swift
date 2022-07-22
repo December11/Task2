@@ -13,6 +13,7 @@ final class SectionViewController: UIViewController {
         static let sideInsets = 24.0
         static let spacing = 16.0
         
+        static let closeTitle = "Закрыть"
         static let bookButtonTitle = "Книги"
         static let newsButtonTitle = "Новости"
         static let randomButtonTitle = "Случайные"
@@ -67,7 +68,7 @@ final class SectionViewController: UIViewController {
             switch result {
             case let .failure(error):
                 DispatchQueue.main.async {
-                    self?.showAlert(title: "Error", message: error.localizedDescription)
+                    self?.showAlert(title: "Ошибка", message: error.localizedDescription)
                     sender.stopLoadAnimation()
                 }
                 
@@ -91,7 +92,7 @@ final class SectionViewController: UIViewController {
             switch result {
             case let .failure(error):
                 DispatchQueue.main.async {
-                    self?.showAlert(title: "Error", message: error.localizedDescription)
+                    self?.showAlert(title: "Ошибка", message: error.localizedDescription)
                     sender.stopLoadAnimation()
                 }
                 
@@ -103,7 +104,7 @@ final class SectionViewController: UIViewController {
         
     private func showAlert(title: String, message: String? = nil) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Close", style: .default))
+        alertController.addAction(UIAlertAction(title: Constants.closeTitle, style: .default))
         present(alertController, animated: true)
     }
     

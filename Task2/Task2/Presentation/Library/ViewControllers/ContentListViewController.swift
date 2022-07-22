@@ -12,6 +12,7 @@ final class ContentListViewController: UIViewController {
     
     private enum Constants {
         static let cellIdentifier = "ContentListTableViewCell"
+        static let closeText = "Закрыть"
         static let cellHeight = 108.0
     }
     
@@ -53,7 +54,7 @@ extension ContentListViewController: UITableViewDataSource {
         guard content.indices.contains(indexPath.row) else { return UITableViewCell() }
         let currentItem = content[indexPath.row]
         cell.configure(item: currentItem) { [weak self] in
-            self?.showAlert(title: "\(indexPath.row + 1)th book")
+            self?.showAlert(title: "Позиция \(indexPath.row + 1) в списке")
         }
         if indexPath.row == 0 {
             cell.separatorView.isHidden = true
@@ -68,7 +69,7 @@ extension ContentListViewController: UITableViewDataSource {
     
     private func showAlert(title: String, message: String? = nil) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Close", style: .default))
+        alertController.addAction(UIAlertAction(title: Constants.closeText, style: .default))
         present(alertController, animated: true)
     }
     
