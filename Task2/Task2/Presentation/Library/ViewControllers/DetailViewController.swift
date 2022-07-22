@@ -10,9 +10,9 @@ import UIKit
 final class DetailViewController: UIViewController {
     
     private enum Identifier {
-        static let header = "ItemHeaderTableView"
-        static let title = "ItemTitleTableViewCell"
-        static let description = "ItemDescriptionTableViewCell"
+        static let header = "DetailHeaderTableView"
+        static let title = "DetailTitleTableViewCell"
+        static let description = "DetailDescriptionTableViewCell"
     }
     
     private let tableView = UITableView(frame: CGRect.zero, style: .grouped)
@@ -29,9 +29,9 @@ final class DetailViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.backgroundColor = .white
         
-        tableView.register(ItemHeaderTableView.self, forHeaderFooterViewReuseIdentifier: Identifier.header)
-        tableView.register(ItemTitleTableViewCell.self, forCellReuseIdentifier: Identifier.title)
-        tableView.register(ItemDescriptionTableViewCell.self,forCellReuseIdentifier: Identifier.description)
+        tableView.register(DetailHeaderTableView.self, forHeaderFooterViewReuseIdentifier: Identifier.header)
+        tableView.register(DetailTitleTableViewCell.self, forCellReuseIdentifier: Identifier.title)
+        tableView.register(DetailDescriptionTableViewCell.self,forCellReuseIdentifier: Identifier.description)
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -60,13 +60,13 @@ extension DetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case Cell.title.rawValue:
-            let cell: ItemTitleTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            let cell: DetailTitleTableViewCell = tableView.dequeueReusableCell(for: indexPath)
             cell.configure(title: itemTitle)
             
             return cell
             
         case Cell.description.rawValue:
-            let cell: ItemDescriptionTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            let cell: DetailDescriptionTableViewCell = tableView.dequeueReusableCell(for: indexPath)
             cell.configure(description: itemDescription)
             
             return cell
@@ -83,7 +83,7 @@ extension DetailViewController: UITableViewDataSource {
 extension DetailViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header: ItemHeaderTableView = tableView.dequeueHeaderFooterView()
+        let header: DetailHeaderTableView = tableView.dequeueHeaderFooterView()
         guard let imageURLString = itemURLString else { return nil }
         header.configure(imageString: imageURLString)
         

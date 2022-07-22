@@ -1,5 +1,5 @@
 //
-//  ItemDescriptionTableViewCell.swift
+//  DetailDescriptionTableViewCell.swift
 //  Task2
 //
 //  Created by Alla Shkolnik on 20.07.2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ItemDescriptionTableViewCell: UITableViewCell {
+final class DetailDescriptionTableViewCell: UITableViewCell {
     
     private enum Constants {
         static let sideInsets = 16.0

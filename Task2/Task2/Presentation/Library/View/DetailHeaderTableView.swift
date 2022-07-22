@@ -1,5 +1,5 @@
 //
-//  ItemHeaderTableView.swift
+//  DetailHeaderTableView.swift
 //  Task2
 //
 //  Created by Alla Shkolnik on 20.07.2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ItemHeaderTableView: UITableViewHeaderFooterView {
+final class DetailHeaderTableView: UITableViewHeaderFooterView {
     
     private enum Constants {
         static let height = 250.0
