@@ -11,7 +11,7 @@
 		4D0FADA32882166A000230A1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 4D0FADA22882166A000230A1 /* Kingfisher */; };
 		4D0FADA5288228D1000230A1 /* NewsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0FADA4288228D1000230A1 /* NewsDTO.swift */; };
 		4D0FADA72882E110000230A1 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0FADA62882E110000230A1 /* News.swift */; };
-		4D0FADAA2882E316000230A1 /* Fetchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0FADA92882E316000230A1 /* Fetchable.swift */; };
+		4D0FADAA2882E316000230A1 /* FetchedDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0FADA92882E316000230A1 /* FetchedDataProtocol.swift */; };
 		4D0FADAC28843C02000230A1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0FADAB28843C02000230A1 /* DetailViewController.swift */; };
 		4D0FADAF288468F3000230A1 /* ButtonWithLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0FADAE288468F3000230A1 /* ButtonWithLoader.swift */; };
 		4D5C3C292888353500D1BDCE /* ItemHeaderTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D5C3C282888353500D1BDCE /* ItemHeaderTableView.swift */; };
@@ -38,7 +38,7 @@
 		4D0FAD9D287F506B000230A1 /* SectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionViewController.swift; sourceTree = "<group>"; };
 		4D0FADA4288228D1000230A1 /* NewsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDTO.swift; sourceTree = "<group>"; };
 		4D0FADA62882E110000230A1 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
-		4D0FADA92882E316000230A1 /* Fetchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetchable.swift; sourceTree = "<group>"; };
+		4D0FADA92882E316000230A1 /* FetchedDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedDataProtocol.swift; sourceTree = "<group>"; };
 		4D0FADAB28843C02000230A1 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		4D0FADAE288468F3000230A1 /* ButtonWithLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithLoader.swift; sourceTree = "<group>"; };
 		4D5C3C282888353500D1BDCE /* ItemHeaderTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemHeaderTableView.swift; sourceTree = "<group>"; };
@@ -78,7 +78,7 @@
 		4D0FADA82882E2F9000230A1 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				4D0FADA92882E316000230A1 /* Fetchable.swift */,
+				4D0FADA92882E316000230A1 /* FetchedDataProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -318,7 +318,7 @@
 				4D0FAD9E287F506B000230A1 /* SectionViewController.swift in Sources */,
 				A4DEBE542865DC46008D21A5 /* ContentListViewController.swift in Sources */,
 				4DEE70B9286AECCA00340636 /* UITableView+Reusable.swift in Sources */,
-				4D0FADAA2882E316000230A1 /* Fetchable.swift in Sources */,
+				4D0FADAA2882E316000230A1 /* FetchedDataProtocol.swift in Sources */,
 				A4DEBE502865DC46008D21A5 /* AppDelegate.swift in Sources */,
 				4D0FADA5288228D1000230A1 /* NewsDTO.swift in Sources */,
 				4DEE70C1286B47AA00340636 /* ColorViewController.swift in Sources */,

@@ -1,11 +1,11 @@
 //
-//  Fetchable.swift
+//  FetchedDataProtocol.swift
 //  Task2
 //
 //  Created by Alla Shkolnik on 16.07.2022.
 //
 
-protocol Fetchable {
+protocol FetchedDataProtocol {
     
     var title: String? { get set }
     var imageURLString: String? { get set }

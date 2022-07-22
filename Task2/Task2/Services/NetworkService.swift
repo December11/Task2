@@ -9,9 +9,10 @@ import Foundation
 
 final class NetworkService<TypeDTO: Decodable> {
     
-    let session = URLSession.shared
-    let scheme = "https"
-    let host = "firebasestorage.googleapis.com"
+    private let session = URLSession.shared
+    private let scheme = "https"
+    private let host = "firebasestorage.googleapis.com"
+    
     var path = ""
     var queryItems = [URLQueryItem]()
     
@@ -35,6 +36,7 @@ final class NetworkService<TypeDTO: Decodable> {
                 if let error = error {
                     completionBlock(.failure(error))
                 }
+                
                 return
             }
             do {

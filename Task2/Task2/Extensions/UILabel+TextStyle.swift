@@ -22,7 +22,6 @@ extension UILabel {
         self.numberOfLines = 2
         
         switch textStyle {
-            
         case .header:
             self.font = .systemFont(ofSize: 24, weight: .heavy)
             

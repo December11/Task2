@@ -5,7 +5,7 @@
 //  Created by Alla Shkolnik on 16.07.2022.
 //
 
-final class News: Fetchable {
+final class News: FetchedDataProtocol {
     
     var title: String?
     var imageURLString: String?

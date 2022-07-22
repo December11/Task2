@@ -10,11 +10,10 @@ import UIKit
 final class FetchedDataService {
     
     enum Service {
-        
         case books
         case news
         
-        static var booksNetworkService: NetworkService<BookDTO> {
+        static var bookNetworkService: NetworkService<BookDTO> {
             let service = NetworkService<BookDTO>()
             service.path = "/v0/b/table-ec07d.appspot.com/o/books.json"
             service.queryItems = [
@@ -38,74 +37,86 @@ final class FetchedDataService {
         
         static func randomCase() -> FetchedDataService.Service {
             let array = [FetchedDataService.Service.books, FetchedDataService.Service.news]
+            
             return array[Int.random(in: 0...1)]
         }
     }
 
-    var items = [Fetchable]()
-    var error: Error?
-    let service: Service
+    private let service: Service
     
-    init(service: Service) {
+    init(_ service: Service) {
         self.service = service
-        
-        fetch { [weak self] result in
-            switch result {
-            case let .failure(error):
-                self?.error = error
-                
-            case let .success(fetchedItems):
-                self?.items = fetchedItems
+    }
+    
+    func fetch(completionBlock: @escaping (Result<[FetchedDataProtocol], Error>) -> Void) {
+        switch service {
+        case .books:
+            fetchBooks { result in
+                switch result {
+                case let .failure(error):
+                    completionBlock(.failure(error))
+                case let .success(books):
+                    completionBlock(.success(books))
+                }
+            }
+        case .news:
+            fetchNews { result in
+                switch result {
+                case let .failure(error):
+                    completionBlock(.failure(error))
+                case let .success(news):
+                    completionBlock(.success(news))
+                }
             }
         }
     }
     
-    func fetch(completionBlock: @escaping (Result<[Fetchable], Error>) -> Void) {
-        switch service {
-        case .books:
-            let networkService = Service.booksNetworkService
-            networkService.fetch { result in
-                switch result {
-                case let .failure(error):
-                    completionBlock(.failure(error))
+    private func fetchBooks(completionBlock: @escaping (Result<[Book], Error>) -> Void) {
+        Service.bookNetworkService.fetch { result in
+            switch result {
+            case let .failure(error):
+                completionBlock(.failure(error))
+                
+            case let .success(items):
+                let items: [Book] = items.compactMap {
+                    guard
+                        let imageURLString = $0.imageURLString,
+                        let title = $0.title
+                    else { return nil }
                     
-                case let .success(items):
-                    let items: [Book] = items.compactMap {
-                        guard
-                            let imageURLString = $0.imageURLString,
-                            let title = $0.title
-                        else { return nil }
-                        return Book(
-                            title: title,
-                            imageURLString: imageURLString,
-                            shortDescription: $0.shortDescription,
-                            longDescription: $0.longDescription)
-                    }
-                    completionBlock(.success(items))
+                    return Book(
+                        title: title,
+                        imageURLString: imageURLString,
+                        shortDescription: $0.shortDescription,
+                        longDescription: $0.longDescription
+                    )
                 }
+                completionBlock(.success(items))
             }
-            
-        case .news:
-            let networkService = Service.newsNetworkService
-            networkService.fetch { result in
-                switch result {
-                case let .failure(error):
-                    completionBlock(.failure(error))
+        }
+    }
+    
+    private func fetchNews(completionBlock: @escaping (Result<[News], Error>) -> Void) {
+        Service.newsNetworkService.fetch { result in
+            switch result {
+            case let .failure(error):
+                completionBlock(.failure(error))
+                
+            case let .success(items):
+                let items: [News] = items.compactMap {
+                    guard
+                        let imageURLString = $0.imageURLString,
+                        let title = $0.title
+                    else { return nil }
                     
-                case let .success(items):
-                    let items: [News] = items.compactMap {
-                        guard
-                            let imageURLString = $0.imageURLString,
-                            let title = $0.title
-                        else { return nil }
-                        return News(
-                            title: title,
-                            imageURLString: imageURLString,
-                            shortDescription: $0.shortDescription,
-                            longDescription: $0.longDescription)
-                    }
-                    completionBlock(.success(items))
+                    return News(
+                        title: title,
+                        imageURLString: imageURLString,
+                        shortDescription: $0.shortDescription,
+                        longDescription: $0.longDescription
+                    )
                 }
+                completionBlock(.success(items))
             }
         }
     }

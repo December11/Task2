@@ -10,9 +10,9 @@ import UIKit
 final class DetailViewController: UIViewController {
     
     private enum Identifier {
-        static let headerCell = "ItemHeaderTableView"
-        static let titleCell = "ItemTitleTableViewCell"
-        static let descriptionCell = "ItemDescriptionTableViewCell"
+        static let header = "ItemHeaderTableView"
+        static let title = "ItemTitleTableViewCell"
+        static let description = "ItemDescriptionTableViewCell"
     }
     
     private let tableView = UITableView(frame: CGRect.zero, style: .grouped)
@@ -28,9 +28,9 @@ final class DetailViewController: UIViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         
-        tableView.register(ItemHeaderTableView.self, forHeaderFooterViewReuseIdentifier: Identifier.headerCell)
-        tableView.register(ItemTitleTableViewCell.self, forCellReuseIdentifier: Identifier.titleCell)
-        tableView.register(ItemDescriptionTableViewCell.self,forCellReuseIdentifier: Identifier.descriptionCell)
+        tableView.register(ItemHeaderTableView.self, forHeaderFooterViewReuseIdentifier: Identifier.header)
+        tableView.register(ItemTitleTableViewCell.self, forCellReuseIdentifier: Identifier.title)
+        tableView.register(ItemDescriptionTableViewCell.self,forCellReuseIdentifier: Identifier.description)
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -71,7 +71,6 @@ extension DetailViewController: UITableViewDataSource {
             return cell
             
         default:
-            
             return UITableViewCell()
         }
     }

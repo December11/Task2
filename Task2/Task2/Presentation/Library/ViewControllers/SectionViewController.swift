@@ -13,7 +13,7 @@ final class SectionViewController: UIViewController {
         static let sideInsets = 24.0
         static let spacing = 16.0
         
-        static let booksButtonTitle = "Книги"
+        static let bookButtonTitle = "Книги"
         static let newsButtonTitle = "Новости"
         static let randomButtonTitle = "Случайные"
         static let shuffleButtonTitle = "В перемешку"
@@ -41,7 +41,7 @@ final class SectionViewController: UIViewController {
         stackView.axis = .vertical
         stackView.spacing = Constants.spacing
         
-        configureButton(bookButton, title: Constants.booksButtonTitle)
+        configureButton(bookButton, title: Constants.bookButtonTitle)
         configureButton(newsButton, title: Constants.newsButtonTitle)
         configureButton(randomButton, title: Constants.randomButtonTitle)
         configureButton(shuffleButton, title: Constants.shuffleButtonTitle)
@@ -56,15 +56,36 @@ final class SectionViewController: UIViewController {
     
     private func configureButton(_ button: ButtonWithLoader, title: String) {
         button.title = title
+        
         button.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
         }
     }
     
-    private func fetch(
+    private func fetchAndPush(service: FetchedDataService, at sender: ButtonWithLoader) {
+        service.fetch { [weak self] result in
+            switch result {
+            case let .failure(error):
+                DispatchQueue.main.async {
+                    self?.showAlert(title: "Error", message: error.localizedDescription)
+                    sender.stopLoadAnimation()
+                }
+                
+            case let .success(items):
+                DispatchQueue.main.async {
+                    sender.stopLoadAnimation()
+                    let destination = ContentListViewController()
+                    destination.content = items
+                    self?.navigationController?.pushViewController(destination, animated: true)
+                }
+            }
+        }
+    }
+    
+    private func fetchData(
         service: FetchedDataService,
         at sender: ButtonWithLoader,
-        completion: @escaping ([Fetchable]) -> Void
+        completion: @escaping ([FetchedDataProtocol]) -> Void
     ) {
         service.fetch { [weak self] result in
             switch result {
@@ -79,7 +100,7 @@ final class SectionViewController: UIViewController {
             }
         }
     }
-    
+        
     private func showAlert(title: String, message: String? = nil) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Close", style: .default))
@@ -88,67 +109,46 @@ final class SectionViewController: UIViewController {
     
     @objc private func bookButtonAction(_ sender: ButtonWithLoader) {
         sender.startLoadAnimation()
-        let fetchService = FetchedDataService(service: .books)
-        fetch(service: fetchService, at: sender, completion: { [weak self] items in
-            DispatchQueue.main.async {
-                sender.stopLoadAnimation()
-                let destination = ContentListViewController()
-                destination.content = items
-                self?.navigationController?.pushViewController(destination, animated: true)
-            }
-        })
+        let fetchService = FetchedDataService(.books)
+        fetchAndPush(service: fetchService, at: sender)
     }
     
     @objc private func newsButtonAction(_ sender: ButtonWithLoader) {
         sender.startLoadAnimation()
-        let fetchService = FetchedDataService(service: .news)
-        fetch(service: fetchService, at: sender, completion: { [weak self] items in
-            DispatchQueue.main.async {
-                sender.stopLoadAnimation()
-                let destination = ContentListViewController()
-                destination.content = items
-                self?.navigationController?.pushViewController(destination, animated: true)
-            }
-        })
+        let fetchService = FetchedDataService(.news)
+        fetchAndPush(service: fetchService, at: sender)
     }
     
     @objc private func randomButtonAction(_ sender: ButtonWithLoader) {
         sender.startLoadAnimation()
-        let fetchService = FetchedDataService(service: .randomCase())
-        fetch(service: fetchService, at: sender, completion: { [weak self] items in
-            DispatchQueue.main.async {
-                sender.stopLoadAnimation()
-                let destination = ContentListViewController()
-                destination.content = items
-                self?.navigationController?.pushViewController(destination, animated: true)
-            }
-        })
+        let fetchService = FetchedDataService(.randomCase())
+        fetchAndPush(service: fetchService, at: sender)
     }
     
     @objc private func shuffleButtonAction(_ sender: ButtonWithLoader) {
         sender.startLoadAnimation()
         
-        var books = [Fetchable]()
-        var news = [Fetchable]()
-        
+        var books = [FetchedDataProtocol]()
+        var news = [FetchedDataProtocol]()
         
         let dispatchGroup = DispatchGroup()
+        
         let bookFetchWorkItem: DispatchWorkItem
-        let newsFetchWorkItem: DispatchWorkItem
         bookFetchWorkItem = DispatchWorkItem {
             dispatchGroup.enter()
-            let fetchService = FetchedDataService(service: .books)
-            self.fetch(service: fetchService, at: sender) { items in
+            let fetchService = FetchedDataService(.books)
+            self.fetchData(service: fetchService, at: sender) { items in
                 books = items
                 dispatchGroup.leave()
             }
         }
         bookFetchWorkItem.perform()
         
-        newsFetchWorkItem = DispatchWorkItem {
+        let newsFetchWorkItem: DispatchWorkItem
+        newsFetchWorkItem = DispatchWorkItem { 
             dispatchGroup.enter()
-            let fetchService = FetchedDataService(service: .news)
-            self.fetch(service: fetchService, at: sender) { items in
+            let fetchService = FetchedDataService(.news)
+            self.fetchData(service: fetchService, at: sender) { items in
                 news = items
                 dispatchGroup.leave()
             }
@@ -156,7 +156,7 @@ final class SectionViewController: UIViewController {
         newsFetchWorkItem.perform()
         
         dispatchGroup.notify(queue: .main) {
-            var items = [Fetchable]()
+            var items = [FetchedDataProtocol]()
             items.append(contentsOf: books)
             items.append(contentsOf: news)
             sender.stopLoadAnimation()

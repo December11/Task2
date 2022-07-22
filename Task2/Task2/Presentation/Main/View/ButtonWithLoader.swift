@@ -31,6 +31,18 @@ final class ButtonWithLoader: UIButton {
         configureUI()
     }
     
+    func startLoadAnimation() {
+        setTitle("", for: .normal)
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    func stopLoadAnimation() {
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+        setTitle(title, for: .normal)
+    }
+    
     private func configureUI() {
         backgroundColor = .systemGray5
         layer.cornerRadius = Constants.conderRadius
@@ -44,18 +56,6 @@ final class ButtonWithLoader: UIButton {
         }
         
         activityIndicator.isHidden = true
-    }
-    
-    func startLoadAnimation() {
-        setTitle("", for: .normal)
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
-    }
-    
-    func stopLoadAnimation() {
-        activityIndicator.stopAnimating()
-        activityIndicator.isHidden = true
-        setTitle(title, for: .normal)
     }
     
 }

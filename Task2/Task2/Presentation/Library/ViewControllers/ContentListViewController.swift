@@ -17,7 +17,7 @@ final class ContentListViewController: UIViewController {
     
     private let tableView = UITableView()
     
-    var content = [Fetchable]()
+    var content = [FetchedDataProtocol]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +49,7 @@ extension ContentListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ContentListTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        
         guard content.indices.contains(indexPath.row) else { return UITableViewCell() }
         let currentItem = content[indexPath.row]
         cell.configure(item: currentItem) { [weak self] in
@@ -84,6 +85,7 @@ extension ContentListViewController: UITableViewDelegate {
         details.itemTitle = currentItem.title
         details.itemDescription = currentItem.longDescription ?? currentItem.shortDescription
         present(details, animated: true)
+        
         return indexPath
     }
     

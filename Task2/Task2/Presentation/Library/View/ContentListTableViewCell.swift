@@ -16,21 +16,20 @@ final class ContentListTableViewCell: UITableViewCell {
         static let infoButtonWidth = 24.0
         static let newsCoverWidth = 108.0
         static let bookCoverWidth = 80.0
+        static let separatorHeight = 1 / UIScreen.main.nativeScale
         
         static let defaultSideInsets = 16.0
         static let smallSideInsets = 8.0
         static let labelSpacing = 2.0
-        
-        static let separatorHeight = 1 / UIScreen.main.nativeScale
     }
+    
+    let separatorView = UIView()
     
     private let coverImageView = UIImageView()
     private let nameLabel = UILabel(.title)
     private let descriptionLabel = UILabel(.subTitle)
     private let infoButton = UIButton()
     private var completionHandler: (() -> Void)?
-    
-    let separatorView = UIView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -40,10 +39,10 @@ final class ContentListTableViewCell: UITableViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) error")
+        super.init(coder: coder)
     }
     
-    func configure(item: Fetchable, completion: @escaping () -> Void) {
+    func configure(item: FetchedDataProtocol, completion: @escaping () -> Void) {
         nameLabel.text = item.title
         if let description = item.shortDescription {
             descriptionLabel.text = description
@@ -106,7 +105,7 @@ final class ContentListTableViewCell: UITableViewCell {
         
         separatorView.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(Constants.defaultSideInsets)
+            make.horizontalEdges.equalToSuperview().inset(Constants.defaultSideInsets)
             make.height.equalTo(Constants.separatorHeight)
         }
     }

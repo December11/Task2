@@ -24,14 +24,14 @@ final class ColorViewController: UIViewController {
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            topChildViewController.view.backgroundColor = .randomColors.topColor
-            bottomChildViewController.view.backgroundColor = .randomColors.bottomColor
+            topChildViewController.view.backgroundColor = .randomColors.top
+            bottomChildViewController.view.backgroundColor = .randomColors.bottom
         }
     }
     
     private func configureUI() {
-        topChildViewController.view.backgroundColor = .randomColors.topColor
-        bottomChildViewController.view.backgroundColor = .randomColors.bottomColor
+        topChildViewController.view.backgroundColor = .randomColors.top
+        bottomChildViewController.view.backgroundColor = .randomColors.bottom
         
         add(topChildViewController)
         topChildViewController.view.snp.makeConstraints { make in
@@ -50,14 +50,14 @@ final class ColorViewController: UIViewController {
 
 fileprivate extension UIColor {
     
-    static var randomColors: (topColor: UIColor, bottomColor: UIColor) {
+    static var randomColors: (top: UIColor, bottom: UIColor) {
         let halfSpectral = CGFloat(round(255 / 2))
         let random = CGFloat.random(in: 10...245)
         
         return random > halfSpectral
         ? (
-            UIColor(hue: (random + halfSpectral) / 255, saturation: 0.5, brightness: 0.9, alpha: 1),
-            UIColor(hue: (random - halfSpectral) / 255, saturation: 0.5, brightness: 0.9, alpha: 1)
+            UIColor(hue: (halfSpectral + random) / 255, saturation: 0.5, brightness: 0.9, alpha: 1),
+            UIColor(hue: (halfSpectral - random) / 255, saturation: 0.5, brightness: 0.9, alpha: 1)
         )
         : (
             UIColor(hue: (halfSpectral - random) / 255, saturation: 0.5, brightness: 0.9, alpha: 1),
