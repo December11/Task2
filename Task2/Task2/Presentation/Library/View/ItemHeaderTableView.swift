@@ -25,7 +25,7 @@ final class ItemHeaderTableView: UITableViewHeaderFooterView {
         contentView.addSubview(coverImageView)
         contentView.addSubview(coverImageView)
         coverImageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.horizontalEdges.equalToSuperview()
             make.height.equalTo(Constants.height)
         }
     }

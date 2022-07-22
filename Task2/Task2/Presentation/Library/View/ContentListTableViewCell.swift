@@ -14,8 +14,7 @@ final class ContentListTableViewCell: UITableViewCell {
         static let infoImageTitle = "info.circle"
         
         static let infoButtonWidth = 24.0
-        static let newsCoverWidth = 108.0
-        static let bookCoverWidth = 80.0
+        static let coverWidth = 108.0
         static let separatorHeight = 1 / UIScreen.main.nativeScale
         
         static let defaultSideInsets = 16.0
@@ -69,7 +68,7 @@ final class ContentListTableViewCell: UITableViewCell {
         contentView.addSubview(coverImageView)
         coverImageView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
-            make.height.width.equalTo(Constants.newsCoverWidth)
+            make.height.width.equalTo(Constants.coverWidth)
         }
     }
     
@@ -85,7 +84,6 @@ final class ContentListTableViewCell: UITableViewCell {
     }
     
     private func configureLabelStackView() {
-        descriptionLabel.lineBreakMode = .byTruncatingTail
         let stackView = UIStackView(arrangedSubviews: [nameLabel, descriptionLabel])
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally

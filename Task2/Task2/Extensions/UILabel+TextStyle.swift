@@ -18,7 +18,7 @@ extension UILabel {
     
     convenience init(_ textStyle: TextStyle) {
         self.init()
-        self.lineBreakMode = .byWordWrapping
+        self.lineBreakMode = .byTruncatingTail
         self.numberOfLines = 2
         
         switch textStyle {
