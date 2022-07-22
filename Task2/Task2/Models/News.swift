@@ -1,11 +1,11 @@
 //
-//  Book.swift
+//  News.swift
 //  Task2
 //
-//  Created by Alla Shkolnik on 24.06.2022.
+//  Created by Alla Shkolnik on 16.07.2022.
 //
 
-final class Book: FetchedDataProtocol {
+final class News: FetchedDataProtocol {
     
     var title: String?
     var imageURLString: String?
@@ -18,4 +18,5 @@ final class Book: FetchedDataProtocol {
         self.shortDescription = shortDescription
         self.longDescription = longDescription
     }
+    
 }

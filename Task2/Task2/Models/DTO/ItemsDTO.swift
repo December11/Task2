@@ -5,8 +5,8 @@
 //  Created by Alla Shkolnik on 24.06.2022.
 //
 
-struct BookListDTO: Decodable {
+struct ItemsDTO<TypeDTO: Decodable>: Decodable {
     
-    let books: [BookDTO]
+    let items: [TypeDTO]
     
 }

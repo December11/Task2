@@ -7,20 +7,22 @@
 
 import Foundation
 
-final class NetworkService {
+final class NetworkService<TypeDTO: Decodable> {
     
-    func fetch(completionBlock: @escaping (Result<[BookDTO], Error>) -> Void) {
-        
-        let session = URLSession.shared
+    private let session = URLSession.shared
+    private let scheme = "https"
+    private let host = "firebasestorage.googleapis.com"
+    
+    var path = ""
+    var queryItems = [URLQueryItem]()
+    
+    func fetch(completionBlock: @escaping (Result<[TypeDTO], Error>) -> Void) {
         var urlComponents: URLComponents {
             var components = URLComponents()
-            components.scheme = "https"
-            components.host = "firebasestorage.googleapis.com"
-            components.path = "/v0/b/books-6bcec.appspot.com/o/books.json"
-            components.queryItems = [
-                URLQueryItem(name: "alt", value: "media"),
-                URLQueryItem(name: "token", value: "44a536f2-11ea-42fb-a84b-b665e4e05fff")
-            ]
+            components.scheme = scheme
+            components.host = host
+            components.path = path
+            components.queryItems = queryItems
             
             return components
         }
@@ -34,11 +36,12 @@ final class NetworkService {
                 if let error = error {
                     completionBlock(.failure(error))
                 }
+                
                 return
             }
             do {
-                let json = try JSONDecoder().decode(BookListDTO.self, from: data)
-                completionBlock(.success(json.books))
+                let json = try JSONDecoder().decode(ItemsDTO<TypeDTO>.self, from: data)
+                completionBlock(.success(json.items))
             } catch {
                 completionBlock(.failure(error))
             }

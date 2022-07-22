@@ -5,10 +5,23 @@
 //  Created by Alla Shkolnik on 24.06.2022.
 //
 
-struct BookDTO: Decodable {
+struct BookDTO {
     
     let title: String?
-    let author: String?
-    let description: String?
+    let imageURLString: String?
+    let shortDescription: String?
+    let longDescription: String?
     
 }
+
+extension BookDTO: Decodable {
+    
+    enum CodingKeys: String, CodingKey {
+        case title
+        case imageURLString = "thumbnailUrl"
+        case shortDescription
+        case longDescription
+    }
+    
+}
+
